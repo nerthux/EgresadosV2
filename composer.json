@@ -10,7 +10,11 @@
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "~1.0",
-        "josegonzalez/dotenv": "2.*"
+        "josegonzalez/dotenv": "2.*",
+        "cakephp-fr/recaptcha": "~0.4",
+        "friendsofcake/bootstrap-ui": "^1.2",
+        "twbs/bootstrap": "^3.3",
+        "components/jquery": "1.9.*"
     },
     "require-dev": {
         "psy/psysh": "@stable",
