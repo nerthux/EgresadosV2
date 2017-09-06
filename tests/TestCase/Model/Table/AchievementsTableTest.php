@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\UsersTable;
+use App\Model\Table\AchievementsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\UsersTable Test Case
+ * App\Model\Table\AchievementsTable Test Case
  */
-class UsersTableTest extends TestCase
+class AchievementsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\UsersTable
+     * @var \App\Model\Table\AchievementsTable
      */
-    public $Users;
+    public $Achievements;
 
     /**
      * Fixtures
@@ -24,6 +24,7 @@ class UsersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.achievements',
         'app.users',
         'app.generations',
         'app.forms',
@@ -33,13 +34,14 @@ class UsersTableTest extends TestCase
         'app.careers',
         'app.careers_forms',
         'app.forms_generations',
-        'app.achievements',
-        'app.achievements_users',
         'app.companies',
         'app.sectors',
         'app.companies_users',
+        'app.languages',
+        'app.languages_users',
         'app.skills',
-        'app.skills_users'
+        'app.skills_users',
+        'app.achievements_users'
     ];
 
     /**
@@ -50,8 +52,8 @@ class UsersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Users') ? [] : ['className' => UsersTable::class];
-        $this->Users = TableRegistry::get('Users', $config);
+        $config = TableRegistry::exists('Achievements') ? [] : ['className' => AchievementsTable::class];
+        $this->Achievements = TableRegistry::get('Achievements', $config);
     }
 
     /**
@@ -61,7 +63,7 @@ class UsersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Users);
+        unset($this->Achievements);
 
         parent::tearDown();
     }

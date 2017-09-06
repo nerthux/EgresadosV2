@@ -39,7 +39,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Generations', 'Careers', 'Companies', 'Languages', 'Questions', 'Skills']
+            'contain' => ['Generations', 'Careers', 'Achievements', 'Companies', 'Questions', 'Skills']
         ]);
 
         $this->set('user', $user);
@@ -65,11 +65,11 @@ class UsersController extends AppController
         }
         $generations = $this->Users->Generations->find('list', ['limit' => 200]);
         $careers = $this->Users->Careers->find('list', ['limit' => 200]);
+        $achievements = $this->Users->Achievements->find('list', ['limit' => 200]);
         $companies = $this->Users->Companies->find('list', ['limit' => 200]);
-        $languages = $this->Users->Languages->find('list', ['limit' => 200]);
         $questions = $this->Users->Questions->find('list', ['limit' => 200]);
         $skills = $this->Users->Skills->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'generations', 'careers', 'companies', 'languages', 'questions', 'skills'));
+        $this->set(compact('user', 'generations', 'careers', 'achievements', 'companies', 'questions', 'skills'));
         $this->set('_serialize', ['user']);
     }
 
@@ -83,7 +83,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Companies', 'Languages', 'Questions', 'Skills']
+            'contain' => ['Achievements', 'Companies', 'Questions', 'Skills']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -96,11 +96,11 @@ class UsersController extends AppController
         }
         $generations = $this->Users->Generations->find('list', ['limit' => 200]);
         $careers = $this->Users->Careers->find('list', ['limit' => 200]);
+        $achievements = $this->Users->Achievements->find('list', ['limit' => 200]);
         $companies = $this->Users->Companies->find('list', ['limit' => 200]);
-        $languages = $this->Users->Languages->find('list', ['limit' => 200]);
         $questions = $this->Users->Questions->find('list', ['limit' => 200]);
         $skills = $this->Users->Skills->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'generations', 'careers', 'companies', 'languages', 'questions', 'skills'));
+        $this->set(compact('user', 'generations', 'careers', 'achievements', 'companies', 'questions', 'skills'));
         $this->set('_serialize', ['user']);
     }
 

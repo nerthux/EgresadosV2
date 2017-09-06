@@ -79,9 +79,9 @@ class UsersFixture extends TestFixture
             'role' => 'Lorem ipsum dolor sit amet',
             'generation_id' => 1,
             'career_id' => 1,
-            'created' => '2017-09-02 23:19:09',
+            'created' => '2017-09-06 00:42:42',
             'modified' => 'Lorem ipsum dolor sit amet',
-            'date_of_birth' => '2017-09-02',
+            'date_of_birth' => '2017-09-06',
             'have_title' => 1,
             'gender' => 'Lorem ipsum dolor sit amet'
         ],

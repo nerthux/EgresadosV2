@@ -7,22 +7,22 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * LanguagesUsers Model
+ * AchievementsUsers Model
  *
- * @property \App\Model\Table\LanguagesTable|\Cake\ORM\Association\BelongsTo $Languages
+ * @property \App\Model\Table\AchievementsTable|\Cake\ORM\Association\BelongsTo $Achievements
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
  *
- * @method \App\Model\Entity\LanguagesUser get($primaryKey, $options = [])
- * @method \App\Model\Entity\LanguagesUser newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\LanguagesUser[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\LanguagesUser|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\LanguagesUser patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\LanguagesUser[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\LanguagesUser findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\AchievementsUser get($primaryKey, $options = [])
+ * @method \App\Model\Entity\AchievementsUser newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\AchievementsUser[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\AchievementsUser|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\AchievementsUser patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\AchievementsUser[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\AchievementsUser findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class LanguagesUsersTable extends Table
+class AchievementsUsersTable extends Table
 {
 
     /**
@@ -35,14 +35,14 @@ class LanguagesUsersTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('languages_users');
-        $this->setDisplayField('languages_id');
-        $this->setPrimaryKey(['languages_id', 'users_id']);
+        $this->setTable('achievements_users');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Languages', [
-            'foreignKey' => 'languages_id',
+        $this->belongsTo('Achievements', [
+            'foreignKey' => 'achievement_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
@@ -60,6 +60,10 @@ class LanguagesUsersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
+        $validator
             ->scalar('level')
             ->allowEmpty('level');
 
@@ -75,7 +79,7 @@ class LanguagesUsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['languages_id'], 'Languages'));
+        $rules->add($rules->existsIn(['achievement_id'], 'Achievements'));
         $rules->add($rules->existsIn(['users_id'], 'Users'));
 
         return $rules;

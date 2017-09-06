@@ -3,14 +3,6 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Options'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Questions'), ['controller' => 'Questions', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Question'), ['controller' => 'Questions', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="options form large-9 medium-8 columns content">
     <?= $this->Form->create($option) ?>
     <fieldset>
@@ -18,10 +10,31 @@
         <?php
             echo $this->Form->control('name');
             echo $this->Form->control('description');
-            echo $this->Form->control('value');
-            echo $this->Form->control('ordering');
-        ?>
+	?>
+
+	<div id="opt-container">
+		<div class="form-group text">
+			<label class="control-label" for="option-text">Text</label>
+			<input type="text" name="text[]" id="option-text" class="form-control"/>
+		</div>
+		<div class="form-group text">
+			<label class="control-label" for="option-val">Val</label>
+			<input type="text" name="val[]" id="option-val" class="form-control"/>
+		</div>	
+	</div>
+	<button type="button" id="add-opt" class="btn">Add option</button>
+      </div> 
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+
+<script>
+$(document).ready(function(){
+	$('#add-opt').click(function(){
+		$('#opt-container').append('<div class="form-group text"><label class="control-label" for="option-text">Text</label><input type="text" name="text[]" id="option-text" class="form-control"/></div><div class="form-group text"><label class="control-label" for="option-val">Val</label><input type="text" name="val[]" id="option-val" class="form-control"/></div>');
+	});
+
+});
+</script>

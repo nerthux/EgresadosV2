@@ -11,8 +11,8 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\GenerationsTable|\Cake\ORM\Association\BelongsTo $Generations
  * @property \App\Model\Table\CareersTable|\Cake\ORM\Association\BelongsTo $Careers
+ * @property \App\Model\Table\AchievementsTable|\Cake\ORM\Association\BelongsToMany $Achievements
  * @property \App\Model\Table\CompaniesTable|\Cake\ORM\Association\BelongsToMany $Companies
- * @property \App\Model\Table\LanguagesTable|\Cake\ORM\Association\BelongsToMany $Languages
  * @property \App\Model\Table\QuestionsTable|\Cake\ORM\Association\BelongsToMany $Questions
  * @property \App\Model\Table\SkillsTable|\Cake\ORM\Association\BelongsToMany $Skills
  *
@@ -53,15 +53,15 @@ class UsersTable extends Table
             'foreignKey' => 'career_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsToMany('Achievements', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'achievement_id',
+            'joinTable' => 'achievements_users'
+        ]);
         $this->belongsToMany('Companies', [
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'company_id',
             'joinTable' => 'companies_users'
-        ]);
-        $this->belongsToMany('Languages', [
-            'foreignKey' => 'user_id',
-            'targetForeignKey' => 'language_id',
-            'joinTable' => 'languages_users'
         ]);
         $this->belongsToMany('Questions', [
             'foreignKey' => 'user_id',

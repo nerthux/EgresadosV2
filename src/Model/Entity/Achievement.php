@@ -4,18 +4,17 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * LanguagesUser Entity
+ * Achievement Entity
  *
- * @property int $languages_id
- * @property int $users_id
- * @property string $level
+ * @property int $id
+ * @property string $name
+ * @property string $type
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  *
- * @property \App\Model\Entity\Language $language
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\User[] $users
  */
-class LanguagesUser extends Entity
+class Achievement extends Entity
 {
 
     /**
@@ -29,7 +28,6 @@ class LanguagesUser extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'languages_id' => false,
-        'users_id' => false
+        'id' => false
     ];
 }

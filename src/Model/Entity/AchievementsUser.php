@@ -4,16 +4,19 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Language Entity
+ * AchievementsUser Entity
  *
  * @property int $id
- * @property string $name
+ * @property int $achievement_id
+ * @property int $users_id
+ * @property string $level
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  *
- * @property \App\Model\Entity\User[] $users
+ * @property \App\Model\Entity\Achievement $achievement
+ * @property \App\Model\Entity\User $user
  */
-class Language extends Entity
+class AchievementsUser extends Entity
 {
 
     /**

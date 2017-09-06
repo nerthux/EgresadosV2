@@ -30,8 +30,8 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Generation $generation
  * @property \App\Model\Entity\Career $career
+ * @property \App\Model\Entity\Achievement[] $achievements
  * @property \App\Model\Entity\Company[] $companies
- * @property \App\Model\Entity\Language[] $languages
  * @property \App\Model\Entity\Question[] $questions
  * @property \App\Model\Entity\Skill[] $skills
  */

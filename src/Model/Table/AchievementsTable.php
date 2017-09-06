@@ -7,21 +7,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Languages Model
+ * Achievements Model
  *
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsToMany $Users
  *
- * @method \App\Model\Entity\Language get($primaryKey, $options = [])
- * @method \App\Model\Entity\Language newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Language[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Language|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Language patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Language[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Language findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Achievement get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Achievement newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Achievement[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Achievement|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Achievement patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Achievement[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Achievement findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class LanguagesTable extends Table
+class AchievementsTable extends Table
 {
 
     /**
@@ -34,16 +34,16 @@ class LanguagesTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('languages');
+        $this->setTable('achievements');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
         $this->belongsToMany('Users', [
-            'foreignKey' => 'language_id',
+            'foreignKey' => 'achievement_id',
             'targetForeignKey' => 'user_id',
-            'joinTable' => 'languages_users'
+            'joinTable' => 'achievements_users'
         ]);
     }
 
@@ -64,6 +64,11 @@ class LanguagesTable extends Table
             ->requirePresence('name', 'create')
             ->notEmpty('name')
             ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->scalar('type')
+            ->requirePresence('type', 'create')
+            ->notEmpty('type');
 
         return $validator;
     }
