@@ -25,7 +25,6 @@
             echo $this->Form->control('name');
             echo $this->Form->control('description');
             echo $this->Form->control('value');
-            echo $this->Form->control('ordering');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

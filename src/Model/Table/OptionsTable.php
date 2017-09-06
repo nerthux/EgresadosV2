@@ -71,10 +71,6 @@ class OptionsTable extends Table
             ->scalar('value')
             ->allowEmpty('value');
 
-        $validator
-            ->integer('ordering')
-            ->allowEmpty('ordering');
-
         return $validator;
     }
 }

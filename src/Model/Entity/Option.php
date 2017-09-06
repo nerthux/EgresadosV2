@@ -10,7 +10,6 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $description
  * @property string $value
- * @property int $ordering
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  *

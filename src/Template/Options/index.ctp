@@ -20,7 +20,6 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('description') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('ordering') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -32,7 +31,6 @@
                 <td><?= $this->Number->format($option->id) ?></td>
                 <td><?= h($option->name) ?></td>
                 <td><?= h($option->description) ?></td>
-                <td><?= $this->Number->format($option->ordering) ?></td>
                 <td><?= h($option->created) ?></td>
                 <td><?= h($option->modified) ?></td>
                 <td class="actions">

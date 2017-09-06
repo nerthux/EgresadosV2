@@ -16,6 +16,46 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `achievements`
+--
+
+DROP TABLE IF EXISTS `achievements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `achievements` (
+  `id` int(3) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `type` enum('language','certification') NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `achievements_users`
+--
+
+DROP TABLE IF EXISTS `achievements_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `achievements_users` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `achievement_id` int(10) NOT NULL,
+  `users_id` int(10) unsigned NOT NULL,
+  `level` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_achivements_has_users_users1_idx` (`users_id`),
+  KEY `fk_achievements_has_users_languages1_idx` (`achievement_id`),
+  CONSTRAINT `fk_achievements_has_users_languages1` FOREIGN KEY (`achievement_id`) REFERENCES `achievements` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_achievements_has_users_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `careers`
 --
 
@@ -159,44 +199,6 @@ CREATE TABLE `generations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `languages`
---
-
-DROP TABLE IF EXISTS `languages`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `languages` (
-  `id` int(3) NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) NOT NULL,
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `languages_users`
---
-
-DROP TABLE IF EXISTS `languages_users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `languages_users` (
-  `languages_id` int(3) NOT NULL,
-  `users_id` int(10) unsigned NOT NULL,
-  `level` enum('basico','basico-limitado','basico-profesional','profesional-completo','nativo') DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`languages_id`,`users_id`),
-  KEY `fk_languages_has_users_users1_idx` (`users_id`),
-  KEY `fk_languages_has_users_languages1_idx` (`languages_id`),
-  CONSTRAINT `fk_languages_has_users_languages1` FOREIGN KEY (`languages_id`) REFERENCES `languages` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_languages_has_users_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `options`
 --
 
@@ -208,7 +210,6 @@ CREATE TABLE `options` (
   `name` varchar(100) NOT NULL,
   `description` varchar(255) NOT NULL,
   `value` mediumtext,
-  `ordering` int(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -385,4 +386,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-05 12:39:20
+-- Dump completed on 2017-09-05 18:51:21

@@ -31,10 +31,6 @@
             <td><?= $this->Number->format($option->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Ordering') ?></th>
-            <td><?= $this->Number->format($option->ordering) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Created') ?></th>
             <td><?= h($option->created) ?></td>
         </tr>
