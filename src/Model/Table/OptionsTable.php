@@ -60,12 +60,22 @@ class OptionsTable extends Table
         $validator
             ->scalar('name')
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->notEmpty('name')
+            ->add('name', [
+                'minLength' => [
+                    'rule' => ['minLength', 4],
+                    'last' => true,
+                    'message' => 'The name field min length is 4  characters.'
+                ],
+                'maxLength' => [
+                    'rule' => ['maxLength', 100],
+                    'message' => 'The name field max length is 4  characters.'
+                ]
+            ]);
 
         $validator
             ->scalar('description')
-            ->requirePresence('description', 'create')
-            ->notEmpty('description');
+            ->allowEmpty('description');
 
         $validator
             ->scalar('value')

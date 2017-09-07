@@ -53,16 +53,18 @@ class OptionsController extends AppController
         $option = $this->Options->newEntity();
         if ($this->request->is('post')) {
             $option = $this->Options->patchEntity($option, $this->request->getData());
-	    $data = $this->request->getData();
-
-	print_r($data);
-	/*
-            if ($this->Options->save($option)) {
-                $this->Flash->success(__('The option has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+	$data = $this->request->getData();
+	
+            if(count(array_filter($data['val'])) == count($data['val']) && 
+                count(array_filter($data['text'])) == count($data['text'])) {
+                $option->value = json_encode(array_combine($data['text'], $data['val']));
+            
+                if ($this->Options->save($option)) {
+                    $this->Flash->success(__('The option has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }
             }
-	*/
+	
             $this->Flash->error(__('The option could not be saved. Please, try again.'));
         }
         $this->set(compact('option'));
