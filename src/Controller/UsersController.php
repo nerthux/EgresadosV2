@@ -73,34 +73,6 @@ class UsersController extends AppController
         $this->set('_serialize', ['user']);
     }
 
-
-    public function register($value='')
-    {
-        $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            $user->role = "student";
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'education', $user->id]);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        }
-       
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
-    }
-
-
-    public function education($id)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-        $this->set(compact('user'));
-    }
-
     /**
      * Edit method
      *
@@ -164,19 +136,61 @@ class UsersController extends AppController
       $user = $this->Users->newEntity();
 
       if ($this->request->is('post')) {
-        if ($this->Recaptcha->verify()) {
+        //if ($this->Recaptcha->verify()) {
           $user = $this->Users->patchEntity($user, $this->request->data);
           $user->role = 'student';
           if ($this->Users->save($user)) {
             $this->Flash->success(__('The user has been saved.'));
-              return $this->redirect(['controller' => 'Pages', 'action' => 'success']);
+              return $this->redirect([ 'action' => 'personal', $user->id]);
           } else
              $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        } else
-          $this->Flash->error(__('Please check your Recaptcha Box.'));
+        //} else
+          //$this->Flash->error(__('Please check your Recaptcha Box.'));
       }
 
       $this->set(compact('user'));
       $this->set('_serialize', ['user']);
+     }
+
+     public function education($id)
+     {
+        $this->viewBuilder()->layout('register');
+         $user = $this->Users->get($id, [
+             'contain' => []
+         ]);
+
+         if($this->request->is(['post', 'put'])){
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user->stage = 3;
+            if ($this->Users->save($user)) {
+              $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect([ 'action' => 'index']);
+            } else
+               $this->Flash->error(__('The user could not be saved. Please, try again.'));
+         }
+         
+        $generations = $this->Users->Generations->find('list', ['limit' => 200]);
+        $careers = $this->Users->Careers->find('list', ['limit' => 200]);
+         $this->set(compact('user', 'generations', 'careers'));
+     }
+
+     public function personal($id)
+     {
+        $this->viewBuilder()->layout('register');
+         $user = $this->Users->get($id, [
+             'contain' => []
+         ]);
+
+         if($this->request->is(['post', 'put'])){
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user->stage = 2;
+            if ($this->Users->save($user)) {
+              $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect([ 'action' => 'education', $user->id]);
+            } else
+               $this->Flash->error(__('The user could not be saved. Please, try again.'));
+         }
+
+         $this->set(compact('user'));
      }
 }
