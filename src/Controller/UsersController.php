@@ -151,4 +151,32 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function signup()
+    {    
+     $this->viewBuilder()->layout('register');
+
+      $user = $this->Users->newEntity();
+
+      if ($this->request->is('post')) {
+        if ($this->Recaptcha->verify()) {
+          $user = $this->Users->patchEntity($user, $this->request->data);
+          $user->role = 'student';
+          if ($this->Users->save($user)) {
+            $this->Flash->success(__('The user has been saved.'));
+              return $this->redirect(['controller' => 'Pages', 'action' => 'success']);
+          } else
+             $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        } else
+          $this->Flash->error(__('Please check your Recaptcha Box.'));
+      }
+
+      $this->set(compact('user'));
+      $this->set('_serialize', ['user']);
+     }
 }
