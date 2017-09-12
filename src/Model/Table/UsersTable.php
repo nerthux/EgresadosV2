@@ -104,15 +104,9 @@ class UsersTable extends Table
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->scalar('username')
-            ->requirePresence('username', 'create')
-            ->notEmpty('username')
-            ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
             ->scalar('password')
             ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->allowEmpty('password');
 
         $validator
             ->scalar('student_id_number')
@@ -120,8 +114,7 @@ class UsersTable extends Table
 
         $validator
             ->integer('email_validation_code')
-            ->requirePresence('email_validation_code', 'create')
-            ->notEmpty('email_validation_code');
+            ->allowEmpty('email_validation_code');
 
         $validator
             ->boolean('email_verified')

@@ -53,3 +53,20 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.ajax({
+            method: "POST",
+            url: "http://localhost:8765/options/add",
+            data: {name:"tests"},
+            beforeSend: function( xhr ) {
+                xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+            }
+        })
+        .done(function( data ) {
+            if ( console && console.log ) {
+                console.log( "Sample of data:", data.slice( 0, 100 ) );
+            }
+      });
+    });
+</script>
