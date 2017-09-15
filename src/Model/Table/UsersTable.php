@@ -60,7 +60,7 @@ class UsersTable extends Table
         ]);
         $this->belongsToMany('Companies', [
             'foreignKey' => 'user_id',
-            'targetForeignKey' => 'company_id',
+            'targetForeignKey' => 'companies_id',
             'joinTable' => 'companies_users'
         ]);
         $this->belongsToMany('Questions', [
@@ -171,5 +171,15 @@ class UsersTable extends Table
         $rules->add($rules->existsIn(['career_id'], 'Careers'));
 
         return $rules;
+    }
+    //finders
+    public function findEmailVerification(Query $query, $options = [])
+    {
+        return $query->where(['id' => $options['id'], 'email_validation_code' => $options['code']]);
+    }
+
+    public function findSmsVerification(Query $query, $options = [])
+    {
+        return $query->where(['id' => $options['id'], 'sms_validation_code' => $options['code']]);
     }
 }
