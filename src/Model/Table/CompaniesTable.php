@@ -46,7 +46,7 @@ class CompaniesTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->belongsToMany('Users', [
-            'foreignKey' => 'company_id',
+            'foreignKey' => 'companies_id',
             'targetForeignKey' => 'user_id',
             'joinTable' => 'companies_users'
         ]);
@@ -91,5 +91,36 @@ class CompaniesTable extends Table
         $rules->add($rules->existsIn(['sector_id'], 'Sectors'));
 
         return $rules;
+    }
+    //FINDERS
+    public function findName(Query $query, $options)
+    {
+        return $query->where(['name' => $options['name']]);
+    }
+
+    public function findSearchName(Query $query, $options)
+    {
+        return $query->where(['name LIKE' => "%".$options['name']."%"]);
+    }
+
+    //METHODS
+    public function getOrCreate($name)
+    {
+        $company = $this->find('name', ['name' => $name])->first();
+        
+        if(!$company){
+            $company = $this->newEntity();
+            $company->name = $name;
+            $this->save($company);
+         }
+
+        return $company; 
+    }
+
+    public function getCompaniesNames($name)
+    {
+        $companies = $this->find('searchName', ['name' => $name])->select('name')->toArray();
+        $companies = array_column($companies, 'name');
+        return $companies;
     }
 }

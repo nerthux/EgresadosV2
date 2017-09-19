@@ -6,7 +6,6 @@ use Cake\Event\Event;
 use Cake\Mailer\Email;
 use Cake\Network\Http\Client;
 
-
 /**
  * Users Controller
  *
@@ -140,19 +139,141 @@ class UsersController extends AppController
       $user = $this->Users->newEntity();
 
       if ($this->request->is('post')) {
-        if ($this->Recaptcha->verify()) {
+        //if ($this->Recaptcha->verify()) {
           $user = $this->Users->patchEntity($user, $this->request->data);
           $user->role = 'student';
+          $user->email_validation_code = mt_rand(100000, 999999);
           if ($this->Users->save($user)) {
+            $email = new Email();
+            $email
+                ->to($user->email)
+                ->from('app@domain.com')
+                ->send("http://localhost:8765/users/emailVerification/" . $user->id . "/" . $user->email_validation_code);
+
             $this->Flash->success(__('The user has been saved.'));
-              return $this->redirect(['controller' => 'Pages', 'action' => 'success']);
+              return $this->redirect([ 'action' => 'personal', $user->id]);
           } else
              $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        } else
-          $this->Flash->error(__('Please check your Recaptcha Box.'));
+        //} else
+          //$this->Flash->error(__('Please check your Recaptcha Box.'));
       }
 
       $this->set(compact('user'));
       $this->set('_serialize', ['user']);
+     }
+
+     public function education($id)
+     {
+        $this->viewBuilder()->layout('register');
+         $user = $this->Users->get($id, [
+             'contain' => []
+         ]);
+
+         if($this->request->is(['post', 'put'])){
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user->stage = 3;
+            if ($this->Users->save($user)) {
+              $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect([ 'work' => 'index', $user->id]);
+            } else
+               $this->Flash->error(__('The user could not be saved. Please, try again.'));
+         }
+         
+        $generations = $this->Users->Generations->find('list', ['limit' => 200]);
+        $careers = $this->Users->Careers->find('list', ['limit' => 200]);
+         $this->set(compact('user', 'generations', 'careers'));
+     }
+
+     public function personal($id)
+     {
+        $this->viewBuilder()->layout('register');
+         $user = $this->Users->get($id, [
+             'contain' => []
+         ]);
+
+         if($this->request->is(['post', 'put'])){
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user->stage = 2;
+            if ($this->Users->save($user)) {
+              $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect([ 'action' => 'education', $user->id]);
+            } else
+               $this->Flash->error(__('The user could not be saved. Please, try again.'));
+         }
+
+         $this->set(compact('user'));
+     }
+
+     public function work($id)
+     {
+            $this->viewBuilder()->layout('register');
+             $user = $this->Users->get($id, [
+                 'contain' => ['Companies']
+             ]);
+
+             if($this->request->is(['post'])){
+                $data = $this->request->data();
+                $company = $this->Users->Companies->getOrCreate($data['company']);
+                $start_date = implode("-", $data['start_date']);
+                $end_date = implode("-", $data['end_date']);
+                
+                $user_data = [
+                    'first_name' => "Rolando",
+                    'companies' => [
+                        [
+                            'id' => $company->id,
+                            '_joinData' => [
+                                'position' => $data['position'],
+                                'start_date' => strlen($start_date) == 10 ? $start_date : null,
+                                'end_date' => strlen($end_date) == 10 ? $end_date : null,
+                                'description' => $data['description'],
+                                'current_job' => true
+                            ]
+                        ]
+                    ]
+                ];
+                $user = $this->Users->patchEntity($user, $user_data);
+
+                if ($this->Users->save($user)) {
+                  $this->Flash->success(__('The user has been saved.'));
+                    return $this->redirect([ 'action' => 'phoneVerification', $user->id]);
+                } else
+                   $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                // next step
+             }
+
+             $this->set(compact('user'));
+     }
+
+
+     public function emailVerification($id, $code)
+     {
+          $this->viewBuilder()->layout('register');
+          $user = $this->Users->find('emailVerification', ['id' => $id, 'code' => $code])->first();
+          if($user){
+            $user->email_verified = true;
+            $this->Users->save($user);
+          }
+          $this->set(compact('user'));
+     }
+
+     public function phoneVerification($id)
+     {
+          $this->viewBuilder()->layout('register');
+            $user = $this->Users->get($id, [
+            ]);
+
+            if($this->request->is(['post', 'put'])){
+                $user = $this->Users->find('smsVerification', ['id' => $id, 'code' => $this->request->data('code')])->first();
+                if($user){
+                  $user->sms_verified = true;
+                  $this->Users->save($user);
+                  $this->Flash->success(__('The phone has been verified.'));
+                }else{
+                     $this->Flash->error(__('The phone could not be verified. Please, try again.'));
+                }
+            }
+
+          $this->set(compact('user'));
      }
 }

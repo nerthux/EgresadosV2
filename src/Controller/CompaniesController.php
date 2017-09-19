@@ -13,6 +13,12 @@ use App\Controller\AppController;
 class CompaniesController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+    }
+
     /**
      * Index method
      *
@@ -21,10 +27,9 @@ class CompaniesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Sectors']
+            //'contain' => ['Sectors']
         ];
         $companies = $this->paginate($this->Companies);
-
         $this->set(compact('companies'));
         $this->set('_serialize', ['companies']);
     }
@@ -114,5 +119,13 @@ class CompaniesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    //API METHODS
+    public function names()
+    {
+        $companies = $this->Companies->getCompaniesNames($this->request->query('q'));
+         return $this->response->withType('json')
+            ->withStringBody(json_encode($companies));
     }
 }

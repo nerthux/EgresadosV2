@@ -18,7 +18,10 @@
     <!-- Custom CSS -->
     <link href="/css/the-big-picture.css" rel="stylesheet">
     <link href="/css/header.css" rel="stylesheet">
-
+    <link href="/css/jquery-ui.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="/js/jquery/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -110,9 +113,8 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="/js/jquery/jquery.min.js"></script>
-
+    
+    
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap/bootstrap.min.js"></script>
 

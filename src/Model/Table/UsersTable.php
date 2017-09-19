@@ -60,7 +60,7 @@ class UsersTable extends Table
         ]);
         $this->belongsToMany('Companies', [
             'foreignKey' => 'user_id',
-            'targetForeignKey' => 'company_id',
+            'targetForeignKey' => 'companies_id',
             'joinTable' => 'companies_users'
         ]);
         $this->belongsToMany('Questions', [
@@ -104,15 +104,9 @@ class UsersTable extends Table
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->scalar('username')
-            ->requirePresence('username', 'create')
-            ->notEmpty('username')
-            ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
             ->scalar('password')
             ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->allowEmpty('password');
 
         $validator
             ->scalar('student_id_number')
@@ -120,8 +114,7 @@ class UsersTable extends Table
 
         $validator
             ->integer('email_validation_code')
-            ->requirePresence('email_validation_code', 'create')
-            ->notEmpty('email_validation_code');
+            ->allowEmpty('email_validation_code');
 
         $validator
             ->boolean('email_verified')
@@ -178,5 +171,15 @@ class UsersTable extends Table
         $rules->add($rules->existsIn(['career_id'], 'Careers'));
 
         return $rules;
+    }
+    //finders
+    public function findEmailVerification(Query $query, $options = [])
+    {
+        return $query->where(['id' => $options['id'], 'email_validation_code' => $options['code']]);
+    }
+
+    public function findSmsVerification(Query $query, $options = [])
+    {
+        return $query->where(['id' => $options['id'], 'sms_validation_code' => $options['code']]);
     }
 }
