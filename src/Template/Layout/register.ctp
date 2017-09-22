@@ -19,6 +19,7 @@
     <link href="/css/the-big-picture.css" rel="stylesheet">
     <link href="/css/header.css" rel="stylesheet">
     <link href="/css/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
     <!-- jQuery -->
     <script src="/js/jquery/jquery.min.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
@@ -58,16 +59,14 @@
                   <input type="hidden" name="_method" class="form-control" value="POST">
                 </div>
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                  <input id="username" type="text" class="form-control" name="username" value="" placeholder="Usuario">                                        
+                  <input id="username" type="text" class="form-control custom-control" name="username" value="" placeholder="Usuario">                                        
                 </div>
 
                 <div class="input-group">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                  <input id="password" type="password" class="form-control" name="password" value="" placeholder="Contraseña">                                        
+                  <input id="password" type="password" class="form-control custom-control" name="password" value="" placeholder="Contraseña">  
                 </div>
 
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-outline">Iniciar Sesion</button>
               </form>
             </div>
             <!-- /.navbar-collapse -->

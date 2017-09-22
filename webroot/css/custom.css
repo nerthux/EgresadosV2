@@ -1,0 +1,35 @@
+.navbar{
+	border-radius: 0;
+}
+
+.custom-control{
+	border-radius: 0;
+}
+
+.custom-control:focus{
+	box-shadow: none;
+	border-color: #00C853;
+
+}
+
+.btn-outline{
+	background: transparent;
+	border: 1px solid white;
+	color: white;	
+	border-radius: 0;
+}
+
+.btn-outline:hover{
+	background-color: white;
+	color: #4cae4c;
+	border-radius: 0;
+}
+
+.signup-wizard{
+	background-color: white;
+}
+
+.rigth-separator{
+	border-left: 1px solid #c9c9c9;
+	padding-left: 16px;
+}
