@@ -1,20 +1,7 @@
-<div class="container fill signup-wizard" >
-
-    <div class="col-md-6 col-sm-6 pull-left ">
-
-        <h1> ¡ Bienvenido Egresado ! </h1>
-        <h3> ¿ Eres egresado del Tecnológico de Tijuana ? </h3>
-        <p> Este espacio fue creado para tí, el Instituto Tecnológico de Tijuana ha creado el Sistema de Seguimiento de Egresados 
-            para mantenernos en contacto contigo. Nos interesa saber acerca de ti, informarte sobre eventos especiales para egresados,
-            involucrarte en nuestros proyectos de vinculación y sobretodo recordarte que esta siempre será tu casa.
-        </p>
-        <h4> Closed BETA </h4>
-        <p> Este sitio está en su fase de pruebas, si tu carrera o generación no se encuentran en la lista, próximamente lo estarán.</p>
-      </div>
-  <div class="col-md-6 col-sm-6 pull-right ">
-    <!-- <div class="rigth-separator"> -->
+<div class="container" >
+  <div class="col-md-4  col-md-offset-4  signup-wizard">
     <div id="register" class="tab-pane fade in active">
-      <h3> Registrate y mantente en contacto</h3>
+      <h3 class="text-center"> Registrate</h3>
       <div class="innter-form">
         <?= $this->Form->create($user, ['class' => 'm-t']) ?>
             <?= $this->Form->input('first_name', ['class' => 'custom-control']) ?>
@@ -22,14 +9,12 @@
             <?= $this->Form->input('email', ['class' => 'custom-control']) ?>
             <?= $this->Form->input('password', ['class' => 'custom-control']) ?>
             <?= $this->Recaptcha->display() ?>
-
-        <?= $this->Form->button(__('Submit'), ['class' => 'breath btn-block btn-primary full-width m-b',
+        <?= $this->Form->button(__('Submit'), ['class' => 'breath btn-block btn-success full-width m-b',
                                             'templates' => [
                                               'button' => '<button>{{text}}</button>']
                                             ]) ?>
         <?= $this->Form->end() ?>
       </div>
     </div>
- <!--  </div> -->
   </div>
 </div>

@@ -52,22 +52,24 @@
      <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-                <form id="sigin"  class="navbar-form navbar-right" method="post" accept-charset="utf-8" role="form" action="/users/login">
+          <?php if (!$this->request->session()->read('Auth.User.id')): ?>
+              <!-- Brand and toggle get grouped for better mobile display -->
+                  <form id="sigin"  class="navbar-form navbar-right" method="post" accept-charset="utf-8" role="form" action="/users/login">
 
-                <div style="display:none;">
-                  <input type="hidden" name="_method" class="form-control" value="POST">
-                </div>
-                <div class="input-group">
-                  <input id="username" type="text" class="form-control custom-control" name="username" value="" placeholder="Usuario">                                        
-                </div>
+                  <div style="display:none;">
+                    <input type="hidden" name="_method" class="form-control" value="POST">
+                  </div>
+                  <div class="input-group">
+                    <input id="username" type="text" class="form-control custom-control" name="username" value="" placeholder="Usuario">                                        
+                  </div>
 
-                <div class="input-group">
-                  <input id="password" type="password" class="form-control custom-control" name="password" value="" placeholder="Contraseña">  
-                </div>
+                  <div class="input-group">
+                    <input id="password" type="password" class="form-control custom-control" name="password" value="" placeholder="Contraseña">  
+                  </div>
 
-                <button type="submit" class="btn btn-outline">Iniciar Sesion</button>
-              </form>
+                  <button type="submit" class="btn btn-outline">Iniciar Sesion</button>
+                </form>
+              <?php endif ?>
             </div>
             <!-- /.navbar-collapse -->
         </div>

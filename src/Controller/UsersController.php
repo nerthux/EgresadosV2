@@ -16,6 +16,11 @@ use Cake\Network\Http\Client;
 class UsersController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['signup']);
+    }
     /**
      * Index method
      *
@@ -127,6 +132,11 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function login()
+    {
+        # code...
+    }
+
     /**
      * Add method
      *
@@ -149,6 +159,9 @@ class UsersController extends AppController
                 ->to($user->email)
                 ->from('app@domain.com')
                 ->send("http://localhost:8765/users/emailVerification/" . $user->id . "/" . $user->email_validation_code);
+            $login = $this->Auth->setUser($user);
+
+            debug($login);
 
             $this->Flash->success(__('The user has been saved.'));
               return $this->redirect([ 'action' => 'personal', $user->id]);
@@ -162,10 +175,10 @@ class UsersController extends AppController
       $this->set('_serialize', ['user']);
      }
 
-     public function education($id)
+     public function education()
      {
         $this->viewBuilder()->layout('register');
-         $user = $this->Users->get($id, [
+         $user = $this->Users->get($this->Auth->user()->id, [
              'contain' => []
          ]);
 
@@ -174,7 +187,7 @@ class UsersController extends AppController
             $user->stage = 3;
             if ($this->Users->save($user)) {
               $this->Flash->success(__('The user has been saved.'));
-                return $this->redirect([ 'work' => 'index', $user->id]);
+                return $this->redirect([ 'action' => 'work']);
             } else
                $this->Flash->error(__('The user could not be saved. Please, try again.'));
          }
@@ -184,10 +197,10 @@ class UsersController extends AppController
          $this->set(compact('user', 'generations', 'careers'));
      }
 
-     public function personal($id)
+     public function personal()
      {
         $this->viewBuilder()->layout('register');
-         $user = $this->Users->get($id, [
+         $user = $this->Users->get($this->Auth->user()->id, [
              'contain' => []
          ]);
 
@@ -196,7 +209,7 @@ class UsersController extends AppController
             $user->stage = 2;
             if ($this->Users->save($user)) {
               $this->Flash->success(__('The user has been saved.'));
-                return $this->redirect([ 'action' => 'education', $user->id]);
+                return $this->redirect([ 'action' => 'education']);
             } else
                $this->Flash->error(__('The user could not be saved. Please, try again.'));
          }
@@ -204,10 +217,10 @@ class UsersController extends AppController
          $this->set(compact('user'));
      }
 
-     public function work($id)
+     public function work()
      {
             $this->viewBuilder()->layout('register');
-             $user = $this->Users->get($id, [
+             $user = $this->Users->get($this->Auth->user()->id, [
                  'contain' => ['Companies']
              ]);
 
@@ -236,7 +249,7 @@ class UsersController extends AppController
 
                 if ($this->Users->save($user)) {
                   $this->Flash->success(__('The user has been saved.'));
-                    return $this->redirect([ 'action' => 'phoneVerification', $user->id]);
+                    return $this->redirect([ 'action' => 'phoneVerification']);
                 } else
                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 // next step
@@ -257,10 +270,10 @@ class UsersController extends AppController
           $this->set(compact('user'));
      }
 
-     public function phoneVerification($id)
+     public function phoneVerification()
      {
           $this->viewBuilder()->layout('register');
-            $user = $this->Users->get($id, [
+            $user = $this->Users->get($this->Auth->user()->id, [
             ]);
 
             if($this->request->is(['post', 'put'])){

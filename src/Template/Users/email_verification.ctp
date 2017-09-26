@@ -1,5 +1,5 @@
-<div class="container fill highlighted" >
-  <div class="col-md-8 col-md-offset-2">
+<div class="container" >
+  <div class="col-md-6 col-md-offset-3 signup-wizard">
       <div id="register" class="tab-pane fade in active">
         <h3 class="text-center"> Educacion</h3>
           <div class="innter-form">

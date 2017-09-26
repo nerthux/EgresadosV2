@@ -1,25 +1,29 @@
-<div class="container fill highlighted" >
-  <div class="col-md-8 col-md-offset-2">
+<div class="container" >
+  <div class="col-md-6 col-md-offset-3  signup-wizard">
       <div id="register" class="tab-pane fade in active">
-        <h3 class="text-center"> Trabajol</h3>
+        <h3 class="text-center"> Trabajo</h3>
           <div class="innter-form">
             <?= $this->Form->create(null, ['class' => 'm-t']) ?>
-              <div class="text-center">
+              <div class="">
                  <?= $this->Form->input('company', ['id' => 'company']) ?>
               </div>
-              <div class="text-center">
+              <div class="">
                  <?= $this->Form->input('position') ?>
               </div>
-                <div class="text-center">
+                <div class="">
+                    <label for="start_date">Start Date</label>
                    <?= $this->Form->date('start_date', ['empty' => true, 'minDate' =>1980]) ?>
                 </div>
-                <div class="text-center">
+                <div class="">
+                    <label for="end_date">End Date</label>
                    <?= $this->Form->date('end_date', ['empty' => true, 'minDate' =>1980]) ?>
                 </div>
-                <div class="text-center">
+                <div class="">
+                  <label for="description">Description</label>
                    <?= $this->Form->textarea('description') ?>
                 </div>
-            <?= $this->Form->button(__('Submit'), ['class' => 'breath btn-block btn-primary full-width m-b',
+
+            <?= $this->Form->button(__('Submit'), ['class' => 'breath btn-block btn-success full-width m-b',
                                                 'templates' => [
                                                   'button' => '<button>{{text}}</button>']
                                                 ]) ?>
