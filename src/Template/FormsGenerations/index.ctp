@@ -4,16 +4,6 @@
   * @var \App\Model\Entity\FormsGeneration[]|\Cake\Collection\CollectionInterface $formsGenerations
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Forms Generation'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Forms'), ['controller' => 'Forms', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Form'), ['controller' => 'Forms', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Generations'), ['controller' => 'Generations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Generation'), ['controller' => 'Generations', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="formsGenerations index large-9 medium-8 columns content">
     <h3><?= __('Forms Generations') ?></h3>
     <table cellpadding="0" cellspacing="0">

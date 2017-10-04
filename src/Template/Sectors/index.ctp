@@ -4,14 +4,6 @@
   * @var \App\Model\Entity\Sector[]|\Cake\Collection\CollectionInterface $sectors
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Sector'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Companies'), ['controller' => 'Companies', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Company'), ['controller' => 'Companies', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="sectors index large-9 medium-8 columns content">
     <h3><?= __('Sectors') ?></h3>
     <table cellpadding="0" cellspacing="0">

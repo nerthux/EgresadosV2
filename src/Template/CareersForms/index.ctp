@@ -4,16 +4,6 @@
   * @var \App\Model\Entity\CareersForm[]|\Cake\Collection\CollectionInterface $careersForms
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Careers Form'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Careers'), ['controller' => 'Careers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Career'), ['controller' => 'Careers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Forms'), ['controller' => 'Forms', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Form'), ['controller' => 'Forms', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="careersForms index large-9 medium-8 columns content">
     <h3><?= __('Careers Forms') ?></h3>
     <table cellpadding="0" cellspacing="0">
