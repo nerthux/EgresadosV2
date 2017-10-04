@@ -14,22 +14,15 @@
                 <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('username') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('student_id_number') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email_validation_code') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email_verified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('mobile_phone_number') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('sms_validation_code') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('sms_verified') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password_recovery_hash') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('role') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('generation_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('career_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date_of_birth') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('have_title') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('gender') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -41,26 +34,20 @@
                 <td><?= h($user->last_name) ?></td>
                 <td><?= h($user->email) ?></td>
                 <td><?= h($user->username) ?></td>
-                <td><?= h($user->password) ?></td>
                 <td><?= h($user->student_id_number) ?></td>
-                <td><?= $this->Number->format($user->email_validation_code) ?></td>
                 <td><?= h($user->email_verified) ?></td>
                 <td><?= h($user->mobile_phone_number) ?></td>
-                <td><?= $this->Number->format($user->sms_validation_code) ?></td>
                 <td><?= h($user->sms_verified) ?></td>
-                <td><?= h($user->password_recovery_hash) ?></td>
                 <td><?= h($user->role) ?></td>
                 <td><?= $user->has('generation') ? $this->Html->link($user->generation->title, ['controller' => 'Generations', 'action' => 'view', $user->generation->id]) : '' ?></td>
                 <td><?= $user->has('career') ? $this->Html->link($user->career->name, ['controller' => 'Careers', 'action' => 'view', $user->career->id]) : '' ?></td>
                 <td><?= h($user->created) ?></td>
                 <td><?= h($user->modified) ?></td>
-                <td><?= h($user->date_of_birth) ?></td>
-                <td><?= h($user->have_title) ?></td>
-                <td><?= h($user->gender) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+		<td class="actions">
+		    <?= $this->Html->link($this->Html->icon('file'), ['action' => 'view', $user->id], ['escape' => false]) ?>
+                    <?= $this->Html->link($this->Html->icon('edit'), ['action' => 'edit', $user->id], ['escape' => false]) ?>
+                    <?= $this->Form->postLink($this->Html->icon('erase'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', 
+														$user->id), 'escape' => false]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

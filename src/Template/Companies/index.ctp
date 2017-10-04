@@ -29,10 +29,12 @@
                 <td><?= h($company->created) ?></td>
                 <td><?= h($company->modified) ?></td>
                 <td><?= $company->has('sector') ? $this->Html->link($company->sector->name, ['controller' => 'Sectors', 'action' => 'view', $company->sector->id]) : '' ?></td>
+
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $company->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $company->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $company->id], ['confirm' => __('Are you sure you want to delete # {0}?', $company->id)]) ?>
+                    <?= $this->Html->link($this->Html->icon('file'), ['action' => 'view', $company->id], ['escape' => false]) ?>
+                    <?= $this->Html->link($this->Html->icon('edit'), ['action' => 'edit', $company->id], ['escape' => false]) ?>
+                    <?= $this->Form->postLink($this->Html->icon('erase'), ['action' => 'delete', $company->id], ['confirm' => __('Are you sure you want to delete # {0}?',
+                                                                                                                $company->id), 'escape' => false]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
