@@ -46,14 +46,18 @@ class AppController extends Controller
         $this->loadComponent('Recaptcha.Recaptcha');
         $this->loadComponent('Auth', [
                     'loginRedirect' => [
-                        'controller' => 'Articles',
+                        'controller' => 'forms',
                         'action' => 'index'
                     ],
                     'logoutRedirect' => [
-                        'controller' => 'Pages',
-                        'action' => 'display',
-                        'home'
-                    ]
+                        'controller' => 'users',
+                        'action' => 'login'
+                    ],
+		    'authenticate' => [
+                        'Form' => [
+                            'fields' => ['username' => 'email']
+                        ]
+		    ]
                 ]);
         /*
          * Enable the following components for recommended CakePHP security settings.

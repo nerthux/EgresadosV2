@@ -134,7 +134,23 @@ class UsersController extends AppController
 
     public function login()
     {
-        # code...
+     $this->viewBuilder()->layout('register');
+
+     if ($this->request->is('post')) {
+        $user = $this->Auth->identify();
+	debug($user);
+        if ($user) {
+          $this->Auth->setUser($user);
+          return $this->redirect($this->Auth->redirectUrl());
+        }
+        $this->Flash->error(__('Invalid username or password, try again'));
+      }
+
+    }
+
+    public function logout()
+    {
+      return $this->redirect($this->Auth->logout());
     }
 
     /**
@@ -160,8 +176,6 @@ class UsersController extends AppController
                 ->from('app@domain.com')
                 ->send("http://localhost:8765/users/emailVerification/" . $user->id . "/" . $user->email_validation_code);
             $login = $this->Auth->setUser($user);
-
-            debug($login);
 
             $this->Flash->success(__('The user has been saved.'));
               return $this->redirect([ 'action' => 'personal', $user->id]);
