@@ -11,7 +11,6 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('description') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -22,7 +21,6 @@
             <tr>
                 <td><?= $this->Number->format($form->id) ?></td>
                 <td><?= h($form->name) ?></td>
-                <td><?= h($form->description) ?></td>
                 <td><?= h($form->created) ?></td>
                 <td><?= h($form->modified) ?></td>
                 <td class="actions">

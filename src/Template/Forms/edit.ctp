@@ -10,8 +10,8 @@
         <?php
             echo $this->Form->control('name');
             echo $this->Form->control('description');
-            echo $this->Form->control('careers._ids', ['options' => $careers]);
-            echo $this->Form->control('generations._ids', ['options' => $generations]);
+            echo $this->Form->control('careers._ids', ['options' => $careers, 'multiple' => 'checkbox']);
+            echo $this->Form->control('generations._ids', ['options' => $generations, 'multiple' => 'checkbox']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
