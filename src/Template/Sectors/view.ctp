@@ -6,7 +6,7 @@
 ?>
 <div class="sectors view large-9 medium-8 columns content">
     <h3><?= h($sector->name) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($sector->name) ?></td>
@@ -27,7 +27,7 @@
     <div class="related">
         <h4><?= __('Related Companies') ?></h4>
         <?php if (!empty($sector->companies)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>

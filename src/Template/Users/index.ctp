@@ -6,14 +6,13 @@
 ?>
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table class="table" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('username') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('student_id_number') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('email_verified') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('mobile_phone_number') ?></th>
@@ -33,7 +32,6 @@
                 <td><?= h($user->first_name) ?></td>
                 <td><?= h($user->last_name) ?></td>
                 <td><?= h($user->email) ?></td>
-                <td><?= h($user->username) ?></td>
                 <td><?= h($user->student_id_number) ?></td>
                 <td><?= h($user->email_verified) ?></td>
                 <td><?= h($user->mobile_phone_number) ?></td>

@@ -6,7 +6,7 @@
 ?>
 <div class="users view large-9 medium-8 columns content">
     <h3><?= h($user->id) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('First Name') ?></th>
             <td><?= h($user->first_name) ?></td>
@@ -95,7 +95,7 @@
     <div class="related">
         <h4><?= __('Related Achievements') ?></h4>
         <?php if (!empty($user->achievements)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
@@ -124,7 +124,7 @@
     <div class="related">
         <h4><?= __('Related Companies') ?></h4>
         <?php if (!empty($user->companies)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
@@ -157,7 +157,7 @@
     <div class="related">
         <h4><?= __('Related Questions') ?></h4>
         <?php if (!empty($user->questions)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Label') ?></th>
@@ -192,7 +192,7 @@
     <div class="related">
         <h4><?= __('Related Skills') ?></h4>
         <?php if (!empty($user->skills)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>

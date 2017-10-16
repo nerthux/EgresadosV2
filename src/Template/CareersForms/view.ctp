@@ -6,7 +6,7 @@
 ?>
 <div class="careersForms view large-9 medium-8 columns content">
     <h3><?= h($careersForm->id) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Career') ?></th>
             <td><?= $careersForm->has('career') ? $this->Html->link($careersForm->career->name, ['controller' => 'Careers', 'action' => 'view', $careersForm->career->id]) : '' ?></td>

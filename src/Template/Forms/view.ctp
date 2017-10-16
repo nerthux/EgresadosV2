@@ -6,7 +6,7 @@
 ?>
 <div class="forms view large-9 medium-8 columns content">
     <h3><?= h($form->name) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($form->name) ?></td>
@@ -31,7 +31,7 @@
     <div class="related">
         <h4><?= __('Related Questions') ?></h4>
         <?php if (!empty($form->questions)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Label') ?></th>
@@ -66,7 +66,7 @@
     <div class="related">
         <h4><?= __('Related Questions Users') ?></h4>
         <?php if (!empty($form->questions_users)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('User Id') ?></th>
@@ -99,7 +99,7 @@
     <div class="related">
         <h4><?= __('Related Careers') ?></h4>
         <?php if (!empty($form->careers)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Code') ?></th>
@@ -128,7 +128,7 @@
     <div class="related">
         <h4><?= __('Related Generations') ?></h4>
         <?php if (!empty($form->generations)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Title') ?></th>

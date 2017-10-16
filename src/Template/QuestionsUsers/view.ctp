@@ -21,7 +21,7 @@
 </nav>
 <div class="questionsUsers view large-9 medium-8 columns content">
     <h3><?= h($questionsUser->id) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('User') ?></th>
             <td><?= $questionsUser->has('user') ? $this->Html->link($questionsUser->user->id, ['controller' => 'Users', 'action' => 'view', $questionsUser->user->id]) : '' ?></td>

@@ -6,7 +6,7 @@
 ?>
 <div class="skillsUsers view large-9 medium-8 columns content">
     <h3><?= h($skillsUser->id) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Skill') ?></th>
             <td><?= $skillsUser->has('skill') ? $this->Html->link($skillsUser->skill->name, ['controller' => 'Skills', 'action' => 'view', $skillsUser->skill->id]) : '' ?></td>

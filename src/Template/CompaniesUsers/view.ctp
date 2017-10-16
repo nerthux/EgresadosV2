@@ -19,7 +19,7 @@
 </nav>
 <div class="companiesUsers view large-9 medium-8 columns content">
     <h3><?= h($companiesUser->id) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Company') ?></th>
             <td><?= $companiesUser->has('company') ? $this->Html->link($companiesUser->company->name, ['controller' => 'Companies', 'action' => 'view', $companiesUser->company->id]) : '' ?></td>

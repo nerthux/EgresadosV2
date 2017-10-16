@@ -33,22 +33,6 @@
 </head>
 
 <body>
-    <div class="container">
-      <div id="headeritt" class="row" >
-        <div class="logo-tnm col-md-4 col-sd-4 col-xs-3" >
-           <a href="http://tectijuana.edu.mx"><img src="/img/header-sep.png"></a>
-        </div>
-         <div class="text-tnm text-center col-md-5 col-sd-6 col-xs-4">
-           <h3>Tecnológico Nacional de México</h3>
-          <h4>Instituto Tecnológico de Tijuana</h4>
-        </div>
-        <div class="logo-itt text-center col-md-2 col-sd-2">
-          <a href="http://tectijuana.edu.mx">
-             <img src="/img/logo_ITT1.png" title="Instituto Tecnológico de Tijuana" alt="Instituto Tecnológico de Tijuana">
-          </a>
-        </div><!--logo-->
-      </div>
-    </div>
      <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
@@ -56,11 +40,9 @@
               <!-- Brand and toggle get grouped for better mobile display -->
                   <form id="sigin"  class="navbar-form navbar-right" method="post" accept-charset="utf-8" role="form" action="/users/login">
 
-                  <div style="display:none;">
                     <input type="hidden" name="_method" class="form-control" value="POST">
-                  </div>
-                  <div class="input-group">
-                    <input id="username" type="text" class="form-control custom-control" name="username" value="" placeholder="Usuario">                                        
+                   <div class="input-group">
+                    <input id="email" type="text" class="form-control custom-control" name="email" value="" placeholder="Email">                                        
                   </div>
 
                   <div class="input-group">
@@ -68,6 +50,10 @@
                   </div>
 
                   <button type="submit" class="btn btn-outline">Iniciar Sesion</button>
+
+                  <div class="input-group">
+                      <a href="#" class="navbar-right link-forgot-password"> Olvidaste tu contraseña ? </a>
+		</div>
                 </form>
               <?php endif ?>
             </div>
@@ -75,35 +61,7 @@
         </div>
         <!-- /.container -->
     </nav>
-     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Egresados ITT</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li>
-                  <a href="#">Aviso de Privacidad</a>
-                </li>
-               <li>
-                  <a href="#">Contacto</a>
-                </li>
-              </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    <div class="full">
+   <div class="full">
       <!-- Page Content -->
       <div class="container">
         <div class="row breath">

@@ -6,7 +6,7 @@
 ?>
 <div class="companies view large-9 medium-8 columns content">
     <h3><?= h($company->name) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($company->name) ?></td>
@@ -39,7 +39,7 @@
     <div class="related">
         <h4><?= __('Related Users') ?></h4>
         <?php if (!empty($company->users)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('First Name') ?></th>

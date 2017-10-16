@@ -4,20 +4,9 @@
   * @var \App\Model\Entity\Option $option
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Option'), ['action' => 'edit', $option->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Option'), ['action' => 'delete', $option->id], ['confirm' => __('Are you sure you want to delete # {0}?', $option->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Options'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Option'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Questions'), ['controller' => 'Questions', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Question'), ['controller' => 'Questions', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
 <div class="options view large-9 medium-8 columns content">
     <h3><?= h($option->name) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($option->name) ?></td>
@@ -46,7 +35,7 @@
     <div class="related">
         <h4><?= __('Related Questions') ?></h4>
         <?php if (!empty($option->questions)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table class="table" cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Label') ?></th>

@@ -6,7 +6,7 @@
 ?>
 <div class="settings view large-9 medium-8 columns content">
     <h3><?= h($setting->id) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Profile') ?></th>
             <td><?= h($setting->profile) ?></td>

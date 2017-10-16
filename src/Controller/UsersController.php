@@ -19,7 +19,7 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['signup']);
+        $this->Auth->allow(['signup', 'emailVerification']);
     }
     /**
      * Index method
@@ -172,9 +172,12 @@ class UsersController extends AppController
           if ($this->Users->save($user)) {
             $email = new Email();
             $email
+		->template('welcome', 'welcome')
                 ->to($user->email)
-                ->from('app@domain.com')
-                ->send("http://localhost:8765/users/emailVerification/" . $user->id . "/" . $user->email_validation_code);
+                ->from('webmaster@egresadositt.com')
+		->emailFormat('html')
+                ->viewVars(['link' => "http://dev.egresadositt.com/users/emailVerification/" . $user->id . "/" . $user->email_validation_code, 'name' => ucfirst($user->first_name) . ' ' . ucfirst($user->last_name) ])
+		->send();
             $login = $this->Auth->setUser($user);
 
             $this->Flash->success(__('The user has been saved.'));

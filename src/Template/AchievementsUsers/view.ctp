@@ -6,7 +6,7 @@
 ?>
 <div class="achievementsUsers view large-9 medium-8 columns content">
     <h3><?= h($achievementsUser->id) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Achievement') ?></th>
             <td><?= $achievementsUser->has('achievement') ? $this->Html->link($achievementsUser->achievement->name, ['controller' => 'Achievements', 'action' => 'view', $achievementsUser->achievement->id]) : '' ?></td>

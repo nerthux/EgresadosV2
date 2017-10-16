@@ -6,7 +6,7 @@
 ?>
 <div class="formsGenerations view large-9 medium-8 columns content">
     <h3><?= h($formsGeneration->id) ?></h3>
-    <table class="vertical-table">
+    <table class="table" class="vertical-table">
         <tr>
             <th scope="row"><?= __('Form') ?></th>
             <td><?= $formsGeneration->has('form') ? $this->Html->link($formsGeneration->form->name, ['controller' => 'Forms', 'action' => 'view', $formsGeneration->form->id]) : '' ?></td>
