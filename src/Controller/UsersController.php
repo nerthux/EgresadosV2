@@ -19,7 +19,7 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['signup', 'emailVerification']);
+        $this->Auth->allow(['signup', 'emailVerification', 'passwordRecovery','newPassword']);
     }
     /**
      * Index method
@@ -305,5 +305,67 @@ class UsersController extends AppController
             }
 
           $this->set(compact('user'));
+     }
+
+    public function passwordRecovery() {
+	$this->viewBuilder()->layout('register');
+      	if ($this->request->is('post')) {
+		$data = $this->request->getData();
+		$user = $this->Users->findByEmail($data['email'])->first();
+		if(empty($user)) {
+			$this->Flasg->error('Oops, no encontramos tu email en nuestro sistema, verifica e intenta de nuevo.');
+                	return $this->redirect('/users/password-recovery');
+		}
+
+		$user->email_validation_code = bin2hex(random_bytes(16));
+		if($this->Users->save($user)) {
+			$email = new Email();
+			$email
+                		->template('password', 'welcome')
+                		->to($user->email)
+                		->from('webmaster@egresadositt.com')
+                		->emailFormat('html') 
+                		->viewVars(['link' => "http://dev.egresadositt.com/users/new_password/" . $user->id . "/" . $user->email_validation_code, 
+					    'name' => ucfirst($user->first_name) ])
+                		->send();
+
+			$this->Flash->success('Te hemos enviado un correo electrónico con las instrucciones para resetear tu contraseña.');
+                   	return $this->redirect('/users/login');
+		}
+	}	
+    }
+
+     public function newPassword($id = null, $code = null)
+     {
+        $this->viewBuilder()->layout('register');
+
+	if ($this->request->is('post')) {
+		$data = $this->request->getData();
+		debug($data);
+		// root perdoname, yo sé que la validación no se hace aquí
+		if ($data['new_password'] != $data['confirm_password']) {
+			$this->Flash->error('El password no coincide.');
+			return $this->redirect( ['action' => 'new-password', $data['id'], $data['email_validation_code']] );
+		}
+
+		$user = $this->Users->findByEmailValidationCodeAndId($data['email_validation_code'], $data['id'])->first();
+		$user->password = $data['new_password'];
+		$user->email_validation_code = 'expired';
+		if($this->Users->save($user)) {
+			$this->Flash->success('Hemos restablecido tu contraseña.');
+                        return $this->redirect('/users/login');
+		}
+
+		$this->Flash->error('Se produjo un error al guardar.');
+                return $this->redirect( [ 'action' => 'new-password', $data['id'], $data['email_validation_code']]);
+
+	}
+	
+       $user = $this->Users->findByEmailValidationCodeAndId($code, $id)->first();
+       if(empty($user)){
+		$this->Flash->error('Oops, no deberías estar aquí, algo no salió como esperaba.');
+            	return $this->redirect('/users/login');
+        }
+	$this->set(compact('user'));
      }
 }

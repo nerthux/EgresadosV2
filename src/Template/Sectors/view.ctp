@@ -33,9 +33,6 @@
                 <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Phone') ?></th>
                 <th scope="col"><?= __('Location') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col"><?= __('Sector Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($sector->companies as $companies): ?>
@@ -44,9 +41,6 @@
                 <td><?= h($companies->name) ?></td>
                 <td><?= h($companies->phone) ?></td>
                 <td><?= h($companies->location) ?></td>
-                <td><?= h($companies->created) ?></td>
-                <td><?= h($companies->modified) ?></td>
-                <td><?= h($companies->sector_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Companies', 'action' => 'view', $companies->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Companies', 'action' => 'edit', $companies->id]) ?>

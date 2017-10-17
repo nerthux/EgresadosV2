@@ -52,7 +52,7 @@
                   <button type="submit" class="btn btn-outline">Iniciar Sesion</button>
 
                   <div class="input-group">
-                      <a href="#" class="navbar-right link-forgot-password"> Olvidaste tu contraseña ? </a>
+                      <a href="/users/password-recovery" class="navbar-right link-forgot-password"> Olvidaste tu contraseña ? </a>
 		</div>
                 </form>
               <?php endif ?>

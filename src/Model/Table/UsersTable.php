@@ -101,7 +101,9 @@ class UsersTable extends Table
             ->email('email')
             ->requirePresence('email', 'create')
             ->notEmpty('email')
-            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('email',
+			'validEmail', [ 'rule' => ['email'], 'message' => 'Ingresa una dirección de email válida!'], 
+			'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('password')

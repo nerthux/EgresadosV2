@@ -7,7 +7,7 @@
     <?= $this->Form->button('Login') ?>
     <?= $this->Form->end() ?>
 
-    <a href="#"><small>Forgot password?</small></a>
+    <a href="/users/password-recovery"><small>Forgot password?</small></a>
 
     <p class="text-muted text-center"><small>Do not have an account?</small></p>
 

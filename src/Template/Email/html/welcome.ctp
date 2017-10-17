@@ -1,8 +1,5 @@
 <table class="table_full editable-bg-color bg_color_ffffff editable-bg-image" bgcolor="#ffffff" width="100%" align="center" mc:repeatable="castellab" mc:variant="Header" cellspacing="0" cellpadding="0" border="0" style="background-image: url(#); background-repeat: no-repeat; background-position: center left; background-size: 100% 100%; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" background="#">
-	<!-- padding-top -->
-	<tbody><tr><td height="100"></td></tr>
-
-	<!-- body -->
+<!-- body -->
 	<tr>
 		<td>
 			<table class="table1" width="600" align="center" border="0" cellspacing="0" cellpadding="0">
