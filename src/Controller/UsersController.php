@@ -195,7 +195,7 @@ class UsersController extends AppController
      public function education()
      {
         $this->viewBuilder()->layout('register');
-         $user = $this->Users->get($this->Auth->user()->id, [
+         $user = $this->Users->get($this->Auth->user("id"), [
              'contain' => []
          ]);
 
@@ -217,7 +217,7 @@ class UsersController extends AppController
      public function personal()
      {
         $this->viewBuilder()->layout('register');
-         $user = $this->Users->get($this->Auth->user()->id, [
+         $user = $this->Users->get($this->Auth->user("id"), [
              'contain' => []
          ]);
 
@@ -237,10 +237,9 @@ class UsersController extends AppController
      public function work()
      {
             $this->viewBuilder()->layout('register');
-             $user = $this->Users->get($this->Auth->user()->id, [
+             $user = $this->Users->get($this->Auth->user("id"), [
                  'contain' => ['Companies']
              ]);
-
              if($this->request->is(['post'])){
                 $data = $this->request->data();
                 $company = $this->Users->Companies->getOrCreate($data['company']);
@@ -287,25 +286,73 @@ class UsersController extends AppController
           $this->set(compact('user'));
      }
 
-     public function phoneVerification()
+     public function addPhone()
      {
           $this->viewBuilder()->layout('register');
-            $user = $this->Users->get($this->Auth->user()->id, [
-            ]);
+          $user = $this->Users->get($this->Auth->user("id"));
 
             if($this->request->is(['post', 'put'])){
-                $user = $this->Users->find('smsVerification', ['id' => $id, 'code' => $this->request->data('code')])->first();
-                if($user){
-                  $user->sms_verified = true;
-                  $this->Users->save($user);
-                  $this->Flash->success(__('The phone has been verified.'));
-                }else{
-                     $this->Flash->error(__('The phone could not be verified. Please, try again.'));
-                }
+		$user->mobile_phone_number = $this->request->data('phone_full');
+
+		if ($this->Users->save($user)) {
+		    $this->sendSMS($user);
+                    return $this->redirect([ 'action' => 'phoneVerification']);
+                } else {
+                   $this->Flash->error(__('The user could not be saved. Please, try again.'));
+	 	} 
             }
+        
 
           $this->set(compact('user'));
      }
+
+    public function phoneVerification() {
+      	$this->viewBuilder()->layout('register');
+        $user = $this->Users->get($this->Auth->user("id"));
+
+    	if($this->request->is(['post', 'put'])){
+		$data = $this->request->getData();
+        	$user = $this->Users->findBySmsValidationCodeAndId($data['code'], $this->Auth->user("id"))->first();
+        		if($user){
+				$user->sms_validation_code = null;
+                  		$user->sms_verified = true;
+                  		$this->Users->save($user);
+                  		$this->Flash->success(__('The phone has been verified.'));
+                	}else{
+                     		$this->Flash->error(__('The phone could not be verified. Please, try again.'));
+                	}
+    	}		
+        $this->set(compact('user'));
+    }
+
+    private function sendSMS($user) {
+	$this->loadModel('Settings');
+        $settings = $this->Settings->get(0);
+
+        //Define SMS Parameters from Settings
+        $userid = $settings->sms_user;
+        $pwd = $settings->sms_pass;
+        $apikey = $settings->sms_apikey;
+        $from = $settings->sms_from;
+        $to = preg_replace("/[^0-9]/", "", $user->mobile_phone_number); // remove all non numeric i.e. remove "+" from +52641234567890
+        $code = rand(1000, 9999);;
+        $user->sms_validation_code = $code;
+        $msg  = " [Egresados ITT ] Su codigo de validacion es: $code";
+        $http = new Client(['host' => 'www.experttexting.com', 'scheme' => 'https']);
+        $response = $http->post('/exptapi/exptsms.asmx/SendSMS', 
+					['UserID' => $userid, 
+					 'PWD' => $pwd, 
+					 'APIKEY' => $apikey,
+					 'FROM' => $from, 
+					 'TO' => $to, 
+					 'MSG' => $msg
+				]);
+	if($response->code == 200) {
+        	$user->sms_validation_code = $code;
+		$this->Users->save($user);
+	}
+    }
+    
 
     public function passwordRecovery() {
 	$this->viewBuilder()->layout('register');

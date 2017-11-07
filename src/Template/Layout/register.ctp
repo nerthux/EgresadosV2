@@ -20,10 +20,16 @@
     <link href="/css/header.css" rel="stylesheet">
     <link href="/css/jquery-ui.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" href="/css/phone_validator/intlTelInput.css">
+
     <!-- jQuery -->
     <script src="/js/jquery/jquery.min.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <script src="/js/phone_validator/data.js"></script>
+    <script src="/js/phone_validator/intlTelInput.js"></script>
+
+   
+     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

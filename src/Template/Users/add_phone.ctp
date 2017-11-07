@@ -4,9 +4,8 @@
         <h3 class="text-center"> Validar Teléfono Celular </h3>
           <div class="innter-form">
             <?= $this->Form->create(null, ['class' => 'm-t']) ?>
-            	<? if($user->sms_validation_code): ?>
-			<?= $this->Form->control('code'); ?>
-		<?endif; ?>
+                <?= $this->Form->control('mobile_phone_number'); ?>
+		<input id="hidden" type="hidden" name="phone_full">
 
 
                 <?= $this->Form->button(__('Submit'), ['class' => 'breath btn-block btn-success full-width m-b',
