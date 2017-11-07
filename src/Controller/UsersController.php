@@ -19,7 +19,7 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['signup', 'emailVerification', 'passwordRecovery','newPassword']);
+        $this->Auth->allow(['signup', 'emailVerification', 'passwordRecovery','newPassword','add']);
     }
     /**
      * Index method

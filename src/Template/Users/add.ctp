@@ -11,7 +11,6 @@
             echo $this->Form->control('first_name');
             echo $this->Form->control('last_name');
             echo $this->Form->control('email');
-            echo $this->Form->control('username');
             echo $this->Form->control('password');
             echo $this->Form->control('student_id_number');
             echo $this->Form->control('email_validation_code');
