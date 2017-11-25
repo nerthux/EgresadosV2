@@ -172,6 +172,8 @@ class FormsController extends AppController
             $form->editor = $request['editor'];
             $form->status = "draft";
 
+            $this->Forms->save($form);
+
             $this->response->type('json');
             $this->response->body('{"status": "success"}');
             return $this->response;
