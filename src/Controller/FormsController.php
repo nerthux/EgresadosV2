@@ -13,6 +13,14 @@ use App\Controller\AppController;
 class FormsController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+        $this->loadModel('Questions');
+        
+    }
+
     /**
      * Index method
      *
@@ -56,7 +64,7 @@ class FormsController extends AppController
             if ($this->Forms->save($form)) {
                 $this->Flash->success(__('The form has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'editor',$form->id]);
             }
             $this->Flash->error(__('The form could not be saved. Please, try again.'));
         }
@@ -111,5 +119,90 @@ class FormsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    private function recursiveEditor($elements, $surveyid){
+        //var_dump($elements);
+        foreach($elements as $element){
+            if($element->type == "panel")
+                $this->recursiveEditor($element->elements, $surveyid);
+                
+            if(in_array($element->type, array('radiogroup', 'checkbox', 'matrix', 'rating'))) {
+                $question = $this->Questions->newEntity();
+                $question->name = $element->name;
+                $question->label = $element->title ?? $element->name;
+                $question->type = $element->type;
+                $question->choices = isset($element->choices) ? json_encode($element->choices, JSON_UNESCAPED_UNICODE) : NULL;
+                $question->required = $element->isRequired ?? NULL;
+                $question->conditional = $element->visibleIf ?? NULL;
+                $question->form_id = $surveyid;
+
+                if($element->type == "matrix") {
+                    $question->columns = json_encode($element->columns, JSON_UNESCAPED_UNICODE);
+                    $question->rows = json_encode($element->rows, JSON_UNESCAPED_UNICODE);
+                }
+                if($element->type == "rating") {
+                    $question->choices = json_encode($element->rateValues, JSON_UNESCAPED_UNICODE);
+                }
+
+                $this->Questions->save($question);
+            }
+             
+        }
+    }
+
+    public function saveEditor()
+    {
+        $this->autoRender = false;
+
+        if ($this->request->is('ajax')) {
+            $request = $this->request->getData();
+            $editor = json_decode($request['editor']);
+            //var_dump(json_decode($request['editor'])); die();
+            foreach($editor->pages as $page ) {
+                    $this->recursiveEditor($page->elements, $request['surveyid'] );
+            }
+
+            $form = $this->Forms->get($request['surveyid'], [
+                'contain' => ['Careers', 'Generations']
+            ]);
+
+            $form->name = $request['surveyname'];
+            $form->description = $request['surveydescription'];
+            $form->editor = $request['editor'];
+            $form->status = "draft";
+
+            $this->response->type('json');
+            $this->response->body('{"status": "success"}');
+            return $this->response;
+        }        
+    }
+
+    /**
+     * Add method
+     *        $this->loadComponent('RequestHandler');
+
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function editor($id = null)
+    {
+        $form = $this->Forms->get($id, [
+            'contain' => ['Careers', 'Generations']
+        ]);
+        $this->viewBuilder()->layout('surveyjs');
+
+        if ($this->request->is('post')) {
+            $form = $this->Forms->patchEntity($form, $this->request->getData());
+            if ($this->Forms->save($form)) {
+                $this->Flash->success(__('The form has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The form could not be saved. Please, try again.'));
+        }
+        $careers = $this->Forms->Careers->find('list', ['limit' => 200]);
+        $generations = $this->Forms->Generations->find('list', ['limit' => 200]);
+        $this->set(compact('form', 'careers', 'generations'));
+        $this->set('_serialize', ['form']);
     }
 }

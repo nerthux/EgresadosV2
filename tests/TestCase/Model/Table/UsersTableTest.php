@@ -28,7 +28,6 @@ class UsersTableTest extends TestCase
         'app.generations',
         'app.forms',
         'app.questions',
-        'app.options',
         'app.questions_users',
         'app.careers',
         'app.careers_forms',
@@ -92,6 +91,26 @@ class UsersTableTest extends TestCase
      * @return void
      */
     public function testBuildRules()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findEmailVerification method
+     *
+     * @return void
+     */
+    public function testFindEmailVerification()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findSmsVerification method
+     *
+     * @return void
+     */
+    public function testFindSmsVerification()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

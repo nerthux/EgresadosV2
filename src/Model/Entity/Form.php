@@ -9,6 +9,8 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string $description
+ * @property string $editor
+ * @property string $status
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  *
@@ -30,7 +32,15 @@ class Form extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
-        'id' => false
+        'name' => true,
+        'description' => true,
+        'editor' => true,
+        'status' => true,
+        'created' => true,
+        'modified' => true,
+        'questions' => true,
+        'questions_users' => true,
+        'careers' => true,
+        'generations' => true
     ];
 }

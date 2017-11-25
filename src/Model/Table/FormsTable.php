@@ -83,6 +83,14 @@ class FormsTable extends Table
             ->scalar('description')
             ->allowEmpty('description');
 
+        $validator
+            ->scalar('editor')
+            ->allowEmpty('editor');
+
+        $validator
+            ->scalar('status')
+            ->allowEmpty('status');
+
         return $validator;
     }
 

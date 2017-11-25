@@ -32,11 +32,11 @@ class FormsTableTest extends TestCase
         'app.forms_generations',
         'app.careers',
         'app.careers_forms',
+        'app.achievements',
+        'app.achievements_users',
         'app.companies',
         'app.sectors',
         'app.companies_users',
-        'app.languages',
-        'app.languages_users',
         'app.questions_users',
         'app.skills',
         'app.skills_users'

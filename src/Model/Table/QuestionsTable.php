@@ -10,7 +10,6 @@ use Cake\Validation\Validator;
  * Questions Model
  *
  * @property \App\Model\Table\FormsTable|\Cake\ORM\Association\BelongsTo $Forms
- * @property \App\Model\Table\OptionsTable|\Cake\ORM\Association\BelongsTo $Options
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsToMany $Users
  *
  * @method \App\Model\Entity\Question get($primaryKey, $options = [])
@@ -46,10 +45,6 @@ class QuestionsTable extends Table
             'foreignKey' => 'form_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Options', [
-            'foreignKey' => 'option_id',
-            'joinType' => 'INNER'
-        ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'question_id',
             'targetForeignKey' => 'user_id',
@@ -70,6 +65,10 @@ class QuestionsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
+            ->scalar('name')
+            ->allowEmpty('name');
+
+        $validator
             ->scalar('label')
             ->requirePresence('label', 'create')
             ->notEmpty('label');
@@ -80,8 +79,24 @@ class QuestionsTable extends Table
             ->notEmpty('type');
 
         $validator
-            ->integer('ordering')
-            ->allowEmpty('ordering');
+            ->scalar('choices')
+            ->allowEmpty('choices');
+
+        $validator
+            ->boolean('required')
+            ->allowEmpty('required');
+
+        $validator
+            ->scalar('conditional')
+            ->allowEmpty('conditional');
+
+        $validator
+            ->scalar('columns')
+            ->allowEmpty('columns');
+
+        $validator
+            ->scalar('rows')
+            ->allowEmpty('rows');
 
         return $validator;
     }
@@ -96,7 +111,6 @@ class QuestionsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['form_id'], 'Forms'));
-        $rules->add($rules->existsIn(['option_id'], 'Options'));
 
         return $rules;
     }

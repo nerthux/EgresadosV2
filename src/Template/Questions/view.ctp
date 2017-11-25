@@ -1,12 +1,29 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  * @var \App\Model\Entity\Question $question
-  */
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Question $question
+ */
 ?>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('Edit Question'), ['action' => 'edit', $question->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Question'), ['action' => 'delete', $question->id], ['confirm' => __('Are you sure you want to delete # {0}?', $question->id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Questions'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Question'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Forms'), ['controller' => 'Forms', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Form'), ['controller' => 'Forms', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
+    </ul>
+</nav>
 <div class="questions view large-9 medium-8 columns content">
     <h3><?= h($question->id) ?></h3>
-    <table class="table" class="vertical-table">
+    <table class="vertical-table">
+        <tr>
+            <th scope="row"><?= __('Name') ?></th>
+            <td><?= h($question->name) ?></td>
+        </tr>
         <tr>
             <th scope="row"><?= __('Label') ?></th>
             <td><?= h($question->label) ?></td>
@@ -20,16 +37,12 @@
             <td><?= $question->has('form') ? $this->Html->link($question->form->name, ['controller' => 'Forms', 'action' => 'view', $question->form->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Option') ?></th>
-            <td><?= $question->has('option') ? $this->Html->link($question->option->name, ['controller' => 'Options', 'action' => 'view', $question->option->id]) : '' ?></td>
+            <th scope="row"><?= __('Conditional') ?></th>
+            <td><?= h($question->conditional) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($question->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Ordering') ?></th>
-            <td><?= $this->Number->format($question->ordering) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Created') ?></th>
@@ -39,17 +52,32 @@
             <th scope="row"><?= __('Modified') ?></th>
             <td><?= h($question->modified) ?></td>
         </tr>
+        <tr>
+            <th scope="row"><?= __('Required') ?></th>
+            <td><?= $question->required ? __('Yes') : __('No'); ?></td>
+        </tr>
     </table>
+    <div class="row">
+        <h4><?= __('Choices') ?></h4>
+        <?= $this->Text->autoParagraph(h($question->choices)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('Columns') ?></h4>
+        <?= $this->Text->autoParagraph(h($question->columns)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('Rows') ?></h4>
+        <?= $this->Text->autoParagraph(h($question->rows)); ?>
+    </div>
     <div class="related">
         <h4><?= __('Related Users') ?></h4>
         <?php if (!empty($question->users)): ?>
-        <table class="table" cellpadding="0" cellspacing="0">
+        <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('First Name') ?></th>
                 <th scope="col"><?= __('Last Name') ?></th>
                 <th scope="col"><?= __('Email') ?></th>
-                <th scope="col"><?= __('Username') ?></th>
                 <th scope="col"><?= __('Password') ?></th>
                 <th scope="col"><?= __('Student Id Number') ?></th>
                 <th scope="col"><?= __('Email Validation Code') ?></th>
@@ -74,7 +102,6 @@
                 <td><?= h($users->first_name) ?></td>
                 <td><?= h($users->last_name) ?></td>
                 <td><?= h($users->email) ?></td>
-                <td><?= h($users->username) ?></td>
                 <td><?= h($users->password) ?></td>
                 <td><?= h($users->student_id_number) ?></td>
                 <td><?= h($users->email_validation_code) ?></td>

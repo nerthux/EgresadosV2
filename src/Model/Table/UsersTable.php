@@ -46,12 +46,10 @@ class UsersTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Generations', [
-            'foreignKey' => 'generation_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'generation_id'
         ]);
         $this->belongsTo('Careers', [
-            'foreignKey' => 'career_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'career_id'
         ]);
         $this->belongsToMany('Achievements', [
             'foreignKey' => 'user_id',
@@ -60,7 +58,7 @@ class UsersTable extends Table
         ]);
         $this->belongsToMany('Companies', [
             'foreignKey' => 'user_id',
-            'targetForeignKey' => 'companies_id',
+            'targetForeignKey' => 'company_id',
             'joinTable' => 'companies_users'
         ]);
         $this->belongsToMany('Questions', [
@@ -101,21 +99,19 @@ class UsersTable extends Table
             ->email('email')
             ->requirePresence('email', 'create')
             ->notEmpty('email')
-            ->add('email',
-			'validEmail', [ 'rule' => ['email'], 'message' => 'Ingresa una dirección de email válida!'], 
-			'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('password')
             ->requirePresence('password', 'create')
-            ->allowEmpty('password');
+            ->notEmpty('password');
 
         $validator
             ->scalar('student_id_number')
             ->allowEmpty('student_id_number');
 
         $validator
-            ->integer('email_validation_code')
+            ->scalar('email_validation_code')
             ->allowEmpty('email_validation_code');
 
         $validator
@@ -140,8 +136,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('role')
-            ->requirePresence('role', 'create')
-            ->notEmpty('role');
+            ->allowEmpty('role');
 
         $validator
             ->date('date_of_birth')
@@ -168,20 +163,9 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->isUnique(['username']));
         $rules->add($rules->existsIn(['generation_id'], 'Generations'));
         $rules->add($rules->existsIn(['career_id'], 'Careers'));
 
         return $rules;
-    }
-    //finders
-    public function findEmailVerification(Query $query, $options = [])
-    {
-        return $query->where(['id' => $options['id'], 'email_validation_code' => $options['code']]);
-    }
-
-    public function findSmsVerification(Query $query, $options = [])
-    {
-        return $query->where(['id' => $options['id'], 'sms_validation_code' => $options['code']]);
     }
 }

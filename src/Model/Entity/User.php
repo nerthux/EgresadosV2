@@ -1,8 +1,6 @@
 <?php
 namespace App\Model\Entity;
 
-
-use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\Entity;
 
 /**
@@ -12,10 +10,9 @@ use Cake\ORM\Entity;
  * @property string $first_name
  * @property string $last_name
  * @property string $email
- * @property string $username
  * @property string $password
  * @property string $student_id_number
- * @property int $email_validation_code
+ * @property string $email_validation_code
  * @property bool $email_verified
  * @property string $mobile_phone_number
  * @property int $sms_validation_code
@@ -50,8 +47,31 @@ class User extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*' => true,
-        'id' => false
+        'first_name' => true,
+        'last_name' => true,
+        'email' => true,
+        'password' => true,
+        'student_id_number' => true,
+        'email_validation_code' => true,
+        'email_verified' => true,
+        'mobile_phone_number' => true,
+        'sms_validation_code' => true,
+        'sms_verified' => true,
+        'password_recovery_hash' => true,
+        'role' => true,
+        'generation_id' => true,
+        'career_id' => true,
+        'created' => true,
+        'modified' => true,
+        'date_of_birth' => true,
+        'have_title' => true,
+        'gender' => true,
+        'generation' => true,
+        'career' => true,
+        'achievements' => true,
+        'companies' => true,
+        'questions' => true,
+        'skills' => true
     ];
 
     /**
@@ -62,11 +82,4 @@ class User extends Entity
     protected $_hidden = [
         'password'
     ];
-
-
-    protected function _setPassword($value)
-    {
-        $hasher = new DefaultPasswordHasher();
-        return $hasher->hash($value);
-    }
 }

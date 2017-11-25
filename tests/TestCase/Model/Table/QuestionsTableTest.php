@@ -27,19 +27,18 @@ class QuestionsTableTest extends TestCase
         'app.questions',
         'app.forms',
         'app.questions_users',
-        'app.careers',
         'app.users',
         'app.generations',
         'app.forms_generations',
+        'app.careers',
+        'app.careers_forms',
+        'app.achievements',
+        'app.achievements_users',
         'app.companies',
         'app.sectors',
         'app.companies_users',
-        'app.languages',
-        'app.languages_users',
         'app.skills',
-        'app.skills_users',
-        'app.careers_forms',
-        'app.options'
+        'app.skills_users'
     ];
 
     /**

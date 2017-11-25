@@ -21,7 +21,7 @@ class QuestionsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Forms', 'Options']
+            'contain' => ['Forms']
         ];
         $questions = $this->paginate($this->Questions);
 
@@ -39,7 +39,7 @@ class QuestionsController extends AppController
     public function view($id = null)
     {
         $question = $this->Questions->get($id, [
-            'contain' => ['Forms', 'Options', 'Users']
+            'contain' => ['Forms' , 'Users']
         ]);
 
         $this->set('question', $question);
@@ -64,9 +64,8 @@ class QuestionsController extends AppController
             $this->Flash->error(__('The question could not be saved. Please, try again.'));
         }
         $forms = $this->Questions->Forms->find('list', ['limit' => 200]);
-        $options = $this->Questions->Options->find('list', ['limit' => 200]);
         $users = $this->Questions->Users->find('list', ['limit' => 200]);
-        $this->set(compact('question', 'forms', 'options', 'users'));
+        $this->set(compact('question', 'forms',  'users'));
         $this->set('_serialize', ['question']);
     }
 
@@ -92,9 +91,8 @@ class QuestionsController extends AppController
             $this->Flash->error(__('The question could not be saved. Please, try again.'));
         }
         $forms = $this->Questions->Forms->find('list', ['limit' => 200]);
-        $options = $this->Questions->Options->find('list', ['limit' => 200]);
         $users = $this->Questions->Users->find('list', ['limit' => 200]);
-        $this->set(compact('question', 'forms', 'options', 'users'));
+        $this->set(compact('question', 'forms', 'users'));
         $this->set('_serialize', ['question']);
     }
 
