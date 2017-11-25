@@ -1,12 +1,29 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  * @var \App\Model\Entity\Form $form
-  */
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Form $form
+ */
 ?>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('Edit Form'), ['action' => 'edit', $form->id]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Form'), ['action' => 'delete', $form->id], ['confirm' => __('Are you sure you want to delete # {0}?', $form->id)]) ?> </li>
+        <li><?= $this->Html->link(__('List Forms'), ['action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Form'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Questions'), ['controller' => 'Questions', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Question'), ['controller' => 'Questions', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Questions Users'), ['controller' => 'QuestionsUsers', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Questions User'), ['controller' => 'QuestionsUsers', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Careers'), ['controller' => 'Careers', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Career'), ['controller' => 'Careers', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Generations'), ['controller' => 'Generations', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Generation'), ['controller' => 'Generations', 'action' => 'add']) ?> </li>
+    </ul>
+</nav>
 <div class="forms view large-9 medium-8 columns content">
     <h3><?= h($form->name) ?></h3>
-    <table class="table" class="vertical-table">
+    <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Name') ?></th>
             <td><?= h($form->name) ?></td>
@@ -14,6 +31,10 @@
         <tr>
             <th scope="row"><?= __('Description') ?></th>
             <td><?= h($form->description) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Status') ?></th>
+            <td><?= h($form->status) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
@@ -28,31 +49,43 @@
             <td><?= h($form->modified) ?></td>
         </tr>
     </table>
+    <div class="row">
+        <h4><?= __('Editor') ?></h4>
+        <?= $this->Text->autoParagraph(h($form->editor)); ?>
+    </div>
     <div class="related">
         <h4><?= __('Related Questions') ?></h4>
         <?php if (!empty($form->questions)): ?>
-        <table class="table" cellpadding="0" cellspacing="0">
+        <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Label') ?></th>
                 <th scope="col"><?= __('Type') ?></th>
-                <th scope="col"><?= __('Ordering') ?></th>
                 <th scope="col"><?= __('Form Id') ?></th>
+                <th scope="col"><?= __('Choices') ?></th>
+                <th scope="col"><?= __('Required') ?></th>
+                <th scope="col"><?= __('Conditional') ?></th>
+                <th scope="col"><?= __('Columns') ?></th>
+                <th scope="col"><?= __('Rows') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
                 <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col"><?= __('Option Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($form->questions as $questions): ?>
             <tr>
                 <td><?= h($questions->id) ?></td>
+                <td><?= h($questions->name) ?></td>
                 <td><?= h($questions->label) ?></td>
                 <td><?= h($questions->type) ?></td>
-                <td><?= h($questions->ordering) ?></td>
                 <td><?= h($questions->form_id) ?></td>
+                <td><?= h($questions->choices) ?></td>
+                <td><?= h($questions->required) ?></td>
+                <td><?= h($questions->conditional) ?></td>
+                <td><?= h($questions->columns) ?></td>
+                <td><?= h($questions->rows) ?></td>
                 <td><?= h($questions->created) ?></td>
                 <td><?= h($questions->modified) ?></td>
-                <td><?= h($questions->option_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Questions', 'action' => 'view', $questions->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Questions', 'action' => 'edit', $questions->id]) ?>
@@ -66,7 +99,7 @@
     <div class="related">
         <h4><?= __('Related Questions Users') ?></h4>
         <?php if (!empty($form->questions_users)): ?>
-        <table class="table" cellpadding="0" cellspacing="0">
+        <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('User Id') ?></th>
@@ -99,7 +132,7 @@
     <div class="related">
         <h4><?= __('Related Careers') ?></h4>
         <?php if (!empty($form->careers)): ?>
-        <table class="table" cellpadding="0" cellspacing="0">
+        <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Code') ?></th>
@@ -128,7 +161,7 @@
     <div class="related">
         <h4><?= __('Related Generations') ?></h4>
         <?php if (!empty($form->generations)): ?>
-        <table class="table" cellpadding="0" cellspacing="0">
+        <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Title') ?></th>

@@ -76,7 +76,7 @@ var editorOptions = {
         $.ajax 
         ( {
             type: "POST",
-            url: "http://localhost:8765/forms/save-editor",
+            url: "/forms/save-editor",
             dataType: 'json',
             async: false,
             data: { editor: survey.text, surveyname: $('#name').val(), surveydescription: $('#description').val(), surveyid: $('.mainkey').val() }
