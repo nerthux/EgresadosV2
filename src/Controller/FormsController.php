@@ -121,11 +121,10 @@ class FormsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    private function recursiveEditor($elements, $surveyid){
-        //var_dump($elements);
+    private function saveQuestions($elements, $surveyid){
         foreach($elements as $element){
             if($element->type == "panel")
-                $this->recursiveEditor($element->elements, $surveyid);
+                $this->saveQuestions($element->elements, $surveyid);
                 
             if(in_array($element->type, array('radiogroup', 'checkbox', 'matrix', 'rating'))) {
                 $question = $this->Questions->newEntity();
@@ -159,8 +158,14 @@ class FormsController extends AppController
             $request = $this->request->getData();
             $editor = json_decode($request['editor']);
             //var_dump(json_decode($request['editor'])); die();
+            $this->Questions->deleteAll(
+                [
+                    'form_id' => $request['surveyid'] 
+                ],
+                false
+            );
             foreach($editor->pages as $page ) {
-                    $this->recursiveEditor($page->elements, $request['surveyid'] );
+                    $this->saveQuestions($page->elements, $request['surveyid'] );
             }
 
             $form = $this->Forms->get($request['surveyid'], [
@@ -181,7 +186,7 @@ class FormsController extends AppController
     }
 
     /**
-     * Add method
+     * Editor method
      *        $this->loadComponent('RequestHandler');
 
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
@@ -191,7 +196,7 @@ class FormsController extends AppController
         $form = $this->Forms->get($id, [
             'contain' => ['Careers', 'Generations']
         ]);
-        $this->viewBuilder()->layout('surveyjs');
+        $this->viewBuilder()->layout('survey_editor');
 
         if ($this->request->is('post')) {
             $form = $this->Forms->patchEntity($form, $this->request->getData());
@@ -207,4 +212,24 @@ class FormsController extends AppController
         $this->set(compact('form', 'careers', 'generations'));
         $this->set('_serialize', ['form']);
     }
+
+    /**
+     * Solve method
+     *
+     * @param string|null $id Form id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function solve($id = null)
+    {
+        $form = $this->Forms->get($id, [
+            'contain' => ['Careers', 'Generations', 'Questions', 'QuestionsUsers']
+        ]);
+
+        $this->viewBuilder()->layout('survey_play');
+        
+        $this->set('form', $form);
+        $this->set('_serialize', ['form']);
+    }
+
 }

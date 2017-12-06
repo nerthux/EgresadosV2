@@ -117,4 +117,37 @@ class QuestionsUsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+   /**
+     * saveAnswers method
+     *
+     * @param string|null $id Form id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function saveAnswers()
+    {
+        $this->autoRender = false;
+        
+        if ($this->request->is('ajax')) {
+            $request = $this->request->getData(); 
+            $questions = json_decode(json_encode($request['form']['questions']));
+            $answers = $request['survey'];
+
+            foreach ($questions as $question) {
+                $questions_index["$question->name"] = $question->id;
+            }
+
+            foreach($answers as $question_name => $answer){
+                $survey = $this->QuestionsUsers->newEntity();
+                $survey->question_id = $questions_index[$question_name];
+                $survey->value = $answer;
+                $survey->form_id = $request['form']['id'];
+                $survey->user_id = $this->Auth->user('id');
+
+                $this->QuestionsUsers->save($survey);
+                print_r($survey);
+            }
+        }
+    }
 }

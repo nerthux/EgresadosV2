@@ -1,3 +1,8 @@
+<?php
+/**
+  * @var \App\View\AppView $this
+  */
+?>
 <div class="container">
   <!-- Modal -->
   <div class="modal fade" id="preferences" role="dialog">
@@ -70,7 +75,7 @@ var editorOptions = {
     // pass the editorOptions into the constructor. It is an optional parameter.
     var survey = new SurveyEditor.SurveyEditor("surveyEditorContainer", editorOptions);  
     survey.toolbarItems.push({id: "preferencesCustomization", visible: true, title: "Preferences", enabled: true, action: function() { $('#preferences').modal('show'); }});
-  
+    survey.text = JSON.stringify(<?= $form->editor ?>);
 
     function saveMySurvey(){
         $.ajax 
