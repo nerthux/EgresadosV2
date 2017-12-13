@@ -262,10 +262,10 @@ class UsersController extends AppController
                     ]
                 ];
                 $user = $this->Users->patchEntity($user, $user_data);
-
+                debug($user); die();
                 if ($this->Users->save($user)) {
                   $this->Flash->success(__('The user has been saved.'));
-                    return $this->redirect([ 'action' => 'phoneVerification']);
+                    return $this->redirect([ 'action' => 'addPhone']);
                 } else
                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 // next step
