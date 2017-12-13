@@ -42,7 +42,7 @@ class CompaniesUsersTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Companies', [
-            'foreignKey' => 'companies_id',
+            'foreignKey' => 'company_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
