@@ -165,27 +165,28 @@ class UsersController extends AppController
       $user = $this->Users->newEntity();
 
       if ($this->request->is('post')) {
-        //if ($this->Recaptcha->verify()) {
+        if ($this->Recaptcha->verify()) {
           $user = $this->Users->patchEntity($user, $this->request->data);
           $user->role = 'student';
           $user->email_validation_code = mt_rand(100000, 999999);
           if ($this->Users->save($user)) {
             $email = new Email();
             $email
-		->template('welcome', 'welcome')
+		        ->template('welcome', 'welcome')
                 ->to($user->email)
+                ->subject('[Egresados ITT] Bienvenido ' . ucfirst($user->first_name))
                 ->from('webmaster@egresadositt.com')
-		->emailFormat('html')
+		        ->emailFormat('html')
                 ->viewVars(['link' => "http://dev.egresadositt.com/users/emailVerification/" . $user->id . "/" . $user->email_validation_code, 'name' => ucfirst($user->first_name) . ' ' . ucfirst($user->last_name) ])
-		->send();
+		        ->send();
             $login = $this->Auth->setUser($user);
 
             $this->Flash->success(__('The user has been saved.'));
               return $this->redirect([ 'action' => 'personal', $user->id]);
           } else
              $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        //} else
-          //$this->Flash->error(__('Please check your Recaptcha Box.'));
+        } else
+          $this->Flash->error(__('Please check your Recaptcha Box.'));
       }
 
       $this->set(compact('user'));
@@ -262,7 +263,6 @@ class UsersController extends AppController
                     ]
                 ];
                 $user = $this->Users->patchEntity($user, $user_data);
-		//debug($user);die();
                 if ($this->Users->save($user)) {
                   $this->Flash->success(__('The user has been saved.'));
                     return $this->redirect([ 'action' => 'addPhone']);
@@ -278,7 +278,7 @@ class UsersController extends AppController
      public function emailVerification($id, $code)
      {
           $this->viewBuilder()->layout('register');
-          $user = $this->Users->find('emailVerification', ['id' => $id, 'code' => $code])->first();
+          $user = $this->Users->findByEmailValidationCodeAndId($code, $id)->first();
           if($user){
             $user->email_verified = true;
             $this->Users->save($user);
