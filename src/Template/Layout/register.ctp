@@ -41,29 +41,29 @@
 <body>
      <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <?php if (!$this->request->session()->read('Auth.User.id')): ?>
-              <!-- Brand and toggle get grouped for better mobile display -->
-                  <form id="sigin"  class="navbar-form navbar-right" method="post" accept-charset="utf-8" role="form" action="/users/login">
+            <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+                <form id="sigin"  class="navbar-form navbar-right" method="post" accept-charset="utf-8" role="form" action="/users/login">
 
-                    <input type="hidden" name="_method" class="form-control" value="POST">
-                   <div class="input-group">
-                    <input id="email" type="text" class="form-control custom-control" name="email" value="" placeholder="Email">                                        
-                  </div>
+                <div style="display:none;">
+                  <input type="hidden" name="_method" class="form-control" value="POST">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input id="username" type="text" class="form-control" name="username" value="" placeholder="Usuario">                                        
+                </div>
 
-                  <div class="input-group">
-                    <input id="password" type="password" class="form-control custom-control" name="password" value="" placeholder="Contraseña">  
-                  </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="password" type="password" class="form-control" name="password" value="" placeholder="Contraseña">                                        
+                </div>
 
-                  <button type="submit" class="btn btn-outline">Iniciar Sesion</button>
-
-                  <div class="input-group">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="input-group">
                       <a href="/users/password-recovery" class="navbar-right link-forgot-password"> Olvidaste tu contraseña ? </a>
-		</div>
-                </form>
-              <?php endif ?>
-            </div>
-            <!-- /.navbar-collapse -->
+		              </div>
+              </form>
+            </div
         </div>
         <!-- /.container -->
     </nav>
