@@ -21,12 +21,14 @@
     <link href="/css/jquery-ui.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/custom.css">
     <link rel="stylesheet" href="/css/phone_validator/intlTelInput.css">
+    <link rel="stylesheet" href="/css/bootstrap-pincode-input.css">
 
     <!-- jQuery -->
     <script src="/js/jquery/jquery.min.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/phone_validator/data.js"></script>
     <script src="/js/phone_validator/intlTelInput.js"></script>
+    <script src="/js/bootstrap-pincode-input.js"></script>
 
    
      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -42,8 +44,9 @@
      <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
             <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-                <form id="sigin"  class="navbar-form navbar-right" method="post" accept-charset="utf-8" role="form" action="/users/login">
+            <?php if (!$this->request->session()->read('Auth.User.id')): ?>
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <form id="sigin"  class="navbar-form navbar-right" method="post" accept-charset="utf-8" role="form" action="/users/login">
 
                 <div style="display:none;">
                   <input type="hidden" name="_method" class="form-control" value="POST">
@@ -63,6 +66,11 @@
                       <a href="/users/password-recovery" class="navbar-right link-forgot-password"> Olvidaste tu contraseña ? </a>
 		              </div>
               </form>
+            <?php else: ?>
+              <div >
+                <h4 class="text-info"><?= "Bienvenido " . $this->request->session()->read('Auth.User.first_name'); ?></h4>
+              </div>
+            <?php endif; ?>  
             </div
         </div>
         <!-- /.container -->

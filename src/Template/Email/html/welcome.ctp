@@ -50,6 +50,7 @@
 
 							<!-- horizontal gap -->
 							<tr><td height="40"></td></tr>
+							<tr><td align="center" style="line-height: 1;color: #c6c6c6;font-style: italic; font-size: 44px; font-weight: 400; font-family: 'Open Sans', Helvetica, sans-serif; mso-line-height-rule: exactly;"><h1> <?= $code ?> </h1></td></tr>
 
 							<!-- buttons -->
 							<tr>

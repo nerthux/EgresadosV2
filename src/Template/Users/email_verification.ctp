@@ -4,15 +4,17 @@
         <h3 class="text-center"> Verificación de Email</h3>
           <div class="innter-form">
             <?php if (!$user): ?>
-            <div class="alert alert-danger">
-                <h4 class="text-center">El correo no se pudo verificar, vuelva a intentar</h4>
-            </div>
+                <div class="alert alert-danger">
+                   <h4 class="text-center">El correo no se pudo verificar, vuelva a intentar</h4>
+                </div>
             <?php else: ?>
-            <div class="alert alert-success">
-                <h4 class="text-center">El correo ha sido verificado</h4>
-            </div>
+                <div class="alert alert-success">
+                    <h4 class="text-center">El correo ha sido verificado</h4>
+                </div>
+                <a href="/users/personal" class="btn btn-primary btn-block" role="button">Siguiente</a>
+
             <?php endif ?>
-          </div>
+          </div>     
       </div>
   </div>
 </div>

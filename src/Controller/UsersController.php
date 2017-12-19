@@ -177,12 +177,12 @@ class UsersController extends AppController
                 ->subject('[Egresados ITT] Bienvenido ' . ucfirst($user->first_name))
                 ->from('webmaster@egresadositt.com')
 		        ->emailFormat('html')
-                ->viewVars(['link' => "http://dev.egresadositt.com/users/emailVerification/" . $user->id . "/" . $user->email_validation_code, 'name' => ucfirst($user->first_name) . ' ' . ucfirst($user->last_name) ])
+                ->viewVars(['link' => "http://dev.egresadositt.com/users/emailVerification/" . $user->id . "/" . $user->email_validation_code, 'name' => ucfirst($user->first_name) . ' ' . ucfirst($user->last_name), 'code' => $user->email_validation_code ])
 		        ->send();
             $login = $this->Auth->setUser($user);
 
             $this->Flash->success(__('The user has been saved.'));
-              return $this->redirect([ 'action' => 'personal', $user->id]);
+              return $this->redirect([ 'action' => 'emailVerificationS0']);
           } else
              $this->Flash->error(__('The user could not be saved. Please, try again.'));
         } else
@@ -241,7 +241,7 @@ class UsersController extends AppController
              $user = $this->Users->get($this->Auth->user("id"), [
                  'contain' => ['Companies']
              ]);
-             if($this->request->is(['post'])){
+             if($this->request->is(['post']))
                 $data = $this->request->data();
                 $company = $this->Users->Companies->getOrCreate($data['company']);
                 $start_date = implode("-", $data['start_date']);
@@ -266,7 +266,7 @@ class UsersController extends AppController
                 if ($this->Users->save($user)) {
                   $this->Flash->success(__('The user has been saved.'));
                     return $this->redirect([ 'action' => 'addPhone']);
-                } else
+                } else {
                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 // next step
              }
@@ -274,14 +274,26 @@ class UsersController extends AppController
              $this->set(compact('user'));
      }
 
-
-     public function emailVerification($id, $code)
+     public function emailVerificationS0()
      {
+        $this->viewBuilder()->layout('register');
+     }
+
+     public function emailVerification($id = null, $code = null)
+     {
+        if($this->request->is(['post'])){
+            $data = $this->request->data();
+            $id = $this->Auth->user("id");
+            $code = $data['code'];
+        }
           $this->viewBuilder()->layout('register');
           $user = $this->Users->findByEmailValidationCodeAndId($code, $id)->first();
           if($user){
             $user->email_verified = true;
             $this->Users->save($user);
+          } else {
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            return $this->redirect([ 'action' => 'emailVerificationS0']);
           }
           $this->set(compact('user'));
      }
