@@ -138,7 +138,6 @@ class UsersController extends AppController
 
      if ($this->request->is('post')) {
         $user = $this->Auth->identify();
-	debug($user);
         if ($user) {
           $this->Auth->setUser($user);
           return $this->redirect($this->Auth->redirectUrl());
@@ -241,14 +240,13 @@ class UsersController extends AppController
              $user = $this->Users->get($this->Auth->user("id"), [
                  'contain' => ['Companies']
              ]);
-             if($this->request->is(['post']))
+             if($this->request->is(['post'])) {
                 $data = $this->request->data();
                 $company = $this->Users->Companies->getOrCreate($data['company']);
                 $start_date = implode("-", $data['start_date']);
                 $end_date = implode("-", $data['end_date']);
                 
                 $user_data = [
-                    'first_name' => "Rolando",
                     'companies' => [
                         [
                             'id' => $company->id,
@@ -269,7 +267,8 @@ class UsersController extends AppController
                 } else {
                    $this->Flash->error(__('The user could not be saved. Please, try again.'));
                 // next step
-             }
+                }
+            }
 
              $this->set(compact('user'));
      }
@@ -400,7 +399,6 @@ class UsersController extends AppController
 
 	if ($this->request->is('post')) {
 		$data = $this->request->getData();
-		debug($data);
 		// root perdoname, yo sé que la validación no se hace aquí
 		if ($data['new_password'] != $data['confirm_password']) {
 			$this->Flash->error('El password no coincide.');

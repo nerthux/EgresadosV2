@@ -326,7 +326,7 @@ msgstr ""
 #: Template/Users/work.ctp:26
 #: View/Helper/FormHelper.php:1927
 msgid "Submit"
-msgstr ""
+msgstr "Enviar"
 
 #: Template/Achievements/edit.ctp:9
 msgid "Edit Achievement"
@@ -370,7 +370,7 @@ msgstr ""
 #: Template/Users/index.ctp:25
 #: Template/Users/view.ctp:105;136;170;201
 msgid "Actions"
-msgstr ""
+msgstr "Acciones"
 
 #: Template/Achievements/index.ctp:29
 #: Template/Achievements/view.ctp:83
@@ -395,7 +395,7 @@ msgstr ""
 #: Template/Users/view.ctp:115;148;183;210
 #: View/Helper/PaginatorHelper.php:1214
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 #: Template/Achievements/index.ctp:30
 #: Template/Achievements/view.ctp:84
@@ -419,7 +419,7 @@ msgstr ""
 #: Template/SkillsUsers/index.ctp:30
 #: Template/Users/view.ctp:116;149;184;211
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: Template/Achievements/index.ctp:31
 #: Template/Achievements/view.ctp:85
@@ -446,7 +446,7 @@ msgstr ""
 #: Template/SkillsUsers/index.ctp:31
 #: Template/Users/view.ctp:117;150;185;212
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: Template/Achievements/index.ctp:31
 #: Template/Achievements/view.ctp:85
@@ -630,7 +630,7 @@ msgstr ""
 #: Template/SkillsUsers/view.ctp:23
 #: Template/Users/view.ctp:75;103;133;167;199
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
 #: Template/Achievements/view.ctp:27;53
 #: Template/AchievementsUsers/view.ctp:31
@@ -648,7 +648,7 @@ msgstr ""
 #: Template/SkillsUsers/view.ctp:27
 #: Template/Users/view.ctp:55;104;134;168;200
 msgid "Modified"
-msgstr ""
+msgstr "Modificado"
 
 #: Template/Achievements/view.ctp:32
 #: Template/Careers/view.ctp:32
@@ -855,20 +855,20 @@ msgstr "Nivel"
 
 #: Template/Careers/add.ctp:9
 msgid "Add Career"
-msgstr ""
+msgstr "Agregar Carrera"
 
 #: Template/Careers/edit.ctp:9
 msgid "Edit Career"
-msgstr ""
+msgstr "Modificar Carrera"
 
 #: Template/Careers/index.ctp:8
 msgid "Careers"
-msgstr ""
+msgstr "Carreras"
 
 #: Template/Careers/view.ctp:11
 #: Template/Forms/view.ctp:121
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #: Template/Careers/view.ctp:93
 #: Template/Generations/view.ctp:93
@@ -880,7 +880,7 @@ msgstr ""
 #: Template/Forms/view.ctp:15
 #: Template/Generations/view.ctp:99
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: Template/CareersForms/add.ctp:9
 msgid "Add Careers Form"
@@ -897,7 +897,7 @@ msgstr ""
 #: Template/CareersForms/view.ctp:11
 #: Template/Users/view.ctp:51
 msgid "Career"
-msgstr ""
+msgstr "Carrera"
 
 #: Template/CareersForms/view.ctp:15
 #: Template/FormsGenerations/view.ctp:11
@@ -908,21 +908,21 @@ msgstr ""
 
 #: Template/Companies/add.ctp:9
 msgid "Add Company"
-msgstr ""
+msgstr "Agregar Empresa"
 
 #: Template/Companies/edit.ctp:9
 msgid "Edit Company"
-msgstr ""
+msgstr "Editar Empresa"
 
 #: Template/Companies/index.ctp:8
 msgid "Companies"
-msgstr ""
+msgstr "Empresas"
 
 #: Template/Companies/view.ctp:15
 #: Template/Sectors/view.ctp:34
 #: Template/Users/view.ctp:131
 msgid "Phone"
-msgstr ""
+msgstr "Teléfono"
 
 #: Template/Companies/view.ctp:19
 #: Template/Sectors/view.ctp:35
@@ -1008,19 +1008,19 @@ msgstr ""
 
 #: Template/CompaniesUsers/view.ctp:24
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #: Template/CompaniesUsers/view.ctp:32
 msgid "Position"
-msgstr ""
+msgstr "Puesto/Cargo"
 
 #: Template/CompaniesUsers/view.ctp:48
 msgid "Start Date"
-msgstr ""
+msgstr "Fecha de Inicio"
 
 #: Template/CompaniesUsers/view.ctp:52
 msgid "End Date"
-msgstr ""
+msgstr "Fecha Final"
 
 #: Template/CompaniesUsers/view.ctp:60
 msgid "Current Job"
@@ -1149,7 +1149,7 @@ msgstr ""
 #: Template/FormsGenerations/view.ctp:15
 #: Template/Users/view.ctp:47
 msgid "Generation"
-msgstr ""
+msgstr "Generación"
 
 #: Template/Generations/add.ctp:9
 msgid "Add Generation"

@@ -7,7 +7,7 @@
             <?= $this->Form->create($user, ['class' => 'm-t']) ?>
                 <?= $this->Form->control('generation_id', ['options' => $generations]); ?>
                 <?= $this->Form->control('career_id', ['options' => $careers]);     ?> 
-                <label for="have_title">Have title</label>  
+                <label for="have_title">Si estoy titulado </label>  
                 <?= $this->Form->checkbox('have_title', ['hiddenField' => false]);?>        
                 <?= $this->Form->button(__('Submit'), ['class' => 'breath btn-block btn-success full-width m-b',
                                                     'templates' => [

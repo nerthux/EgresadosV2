@@ -11,19 +11,19 @@
                  <?= $this->Form->input('position') ?>
               </div>
                 <div class="">
-                    <label for="start_date">Start Date</label>
-                   <?= $this->Form->date('start_date', ['empty' => true, 'minDate' =>1980]) ?>
+                    <label for="start_date"><?= __("Start Date") ?></label>
+                   <?= $this->Form->date('start_date', ['empty' => true, 'minYear' =>1980, 'maxYear' => '2017']) ?>
                 </div>
                 <div class="">
-                    <label for="end_date">End Date</label>
-                   <?= $this->Form->date('end_date', ['empty' => true, 'minDate' =>1980]) ?>
+                    <label for="end_date"><?= __("End Date") ?></label>
+                   <?= $this->Form->date('end_date', ['empty' => true, 'minYear' =>1980, 'maxYear' => '2017']) ?>
                 </div>
                 <div class="">
-                  <label for="description">Description</label>
+                  <label for="description"> <?= __("Description") ?></label>
                    <?= $this->Form->textarea('description') ?>
                 </div>
 
-            <?= $this->Form->button(__('Submit'), ['class' => 'breath btn-block btn-success full-width m-b',
+            <?= $this->Form->button(__('Siguiente'), ['class' => 'breath btn-block btn-success full-width m-b',
                                                 'templates' => [
                                                   'button' => '<button>{{text}}</button>']
                                                 ]) ?>

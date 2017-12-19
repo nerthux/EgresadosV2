@@ -4,12 +4,12 @@
         <h3 class="text-center"> Validar Teléfono Celular </h3>
           <div class="innter-form">
             <?= $this->Form->create(null, ['class' => 'm-t']) ?>
-            	<? if($user->sms_validation_code): ?>
-			<?= $this->Form->control('code'); ?>
-		<?endif; ?>
+            	<?php if($user->sms_validation_code): ?>
+			          <?= $this->Form->control('code'); ?>
+		          <?php endif; ?>
 
 
-                <?= $this->Form->button(__('Submit'), ['class' => 'breath btn-block btn-success full-width m-b',
+                <?= $this->Form->button(__('Siguiente'), ['class' => 'breath btn-block btn-success full-width m-b',
                                                     'templates' => [
                                                       'button' => '<button>{{text}}</button>']
                                                     ]) ?>
@@ -26,4 +26,7 @@
 $("form").submit(function(e) {
   $("#hidden").val($("#mobile-phone-number").intlTelInput("getNumber"));
 });
+
+$('#code').pincodeInput({inputs:4,hidedigits:false});
+
 </script>
