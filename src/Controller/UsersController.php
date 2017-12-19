@@ -16,8 +16,7 @@ use Cake\Network\Http\Client;
 class UsersController extends AppController
 {
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         $this->Auth->allow(['signup', 'emailVerification', 'passwordRecovery','newPassword']);
     }
@@ -26,8 +25,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
-    {
+    public function index() {
         $this->paginate = [
             'contain' => ['Generations', 'Careers']
         ];
@@ -44,8 +42,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $user = $this->Users->get($id, [
             'contain' => ['Generations', 'Careers', 'Achievements', 'Companies', 'Questions', 'Skills']
         ]);
@@ -59,8 +56,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -88,8 +84,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $user = $this->Users->get($id, [
             'contain' => ['Achievements', 'Companies', 'Questions', 'Skills']
         ]);
@@ -119,8 +114,7 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
@@ -132,212 +126,217 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function login()
-    {
-     $this->viewBuilder()->layout('register');
+    public function login() {
+     
+        $this->viewBuilder()->layout('register');
 
-     if ($this->request->is('post')) {
-        $user = $this->Auth->identify();
-        if ($user) {
-          $this->Auth->setUser($user);
-          return $this->redirect($this->Auth->redirectUrl());
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+     
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(__('Invalid username or password, try again'));
         }
-        $this->Flash->error(__('Invalid username or password, try again'));
-      }
 
     }
 
-    public function logout()
-    {
+    public function logout() {
       return $this->redirect($this->Auth->logout());
     }
 
     /**
-     * Add method
+     * Signup method - Wizard Step 1
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function signup()
-    {    
-     $this->viewBuilder()->layout('register');
-
-      $user = $this->Users->newEntity();
-
-      if ($this->request->is('post')) {
-        if ($this->Recaptcha->verify()) {
-          $user = $this->Users->patchEntity($user, $this->request->data);
-          $user->role = 'student';
-          $user->email_validation_code = mt_rand(100000, 999999);
-          if ($this->Users->save($user)) {
-            $email = new Email();
-            $email
-		        ->template('welcome', 'welcome')
-                ->to($user->email)
-                ->subject('[Egresados ITT] Bienvenido ' . ucfirst($user->first_name))
-                ->from('webmaster@egresadositt.com')
-		        ->emailFormat('html')
-                ->viewVars(['link' => "http://dev.egresadositt.com/users/emailVerification/" . $user->id . "/" . $user->email_validation_code, 'name' => ucfirst($user->first_name) . ' ' . ucfirst($user->last_name), 'code' => $user->email_validation_code ])
-		        ->send();
-            $login = $this->Auth->setUser($user);
-
-            $this->Flash->success(__('The user has been saved.'));
-              return $this->redirect([ 'action' => 'emailVerificationS0']);
-          } else
-             $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        } else
-          $this->Flash->error(__('Please check your Recaptcha Box.'));
-      }
-
-      $this->set(compact('user'));
-      $this->set('_serialize', ['user']);
-     }
-
-     public function education()
-     {
+    public function signup() {    
+     
         $this->viewBuilder()->layout('register');
-         $user = $this->Users->get($this->Auth->user("id"), [
+        $user = $this->Users->newEntity();
+
+        if ($this->request->is('post')) {
+
+            if ($this->Recaptcha->verify()) {
+                $user = $this->Users->patchEntity($user, $this->request->data);
+                $user->role = 'student';
+                $user->email_validation_code = mt_rand(100000, 999999);
+
+                if ($this->Users->save($user)) {
+                    $email = new Email();
+                    $email
+                    ->template('welcome', 'welcome')
+                    ->to($user->email)
+                    ->subject('[Egresados ITT] Bienvenido ' . ucfirst($user->first_name))
+                    ->from('webmaster@egresadositt.com')
+                    ->emailFormat('html')
+                    ->viewVars(['link' => "http://dev.egresadositt.com/users/emailVerification/" . $user->id . "/" . $user->email_validation_code, 'name' => ucfirst($user->first_name) . ' ' . ucfirst($user->last_name), 'code' => $user->email_validation_code ])
+                    ->send();
+                    $login = $this->Auth->setUser($user);
+
+                    $this->Flash->success(__('The user has been saved.'));
+                    return $this->redirect([ 'action' => 'emailVerificationS0']);
+                } else
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            } else
+            $this->Flash->error(__('Please check your Recaptcha Box.'));
+        }
+
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+    }
+
+     public function education() {
+        
+        $this->viewBuilder()->layout('register');
+         
+        $user = $this->Users->get($this->Auth->user("id"), [
              'contain' => []
          ]);
-
-         if($this->request->is(['post', 'put'])){
+         
+        if($this->request->is(['post', 'put'])){
             $user = $this->Users->patchEntity($user, $this->request->data);
             $user->stage = 3;
+            
             if ($this->Users->save($user)) {
-              $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect([ 'action' => 'work']);
-            } else
-               $this->Flash->error(__('The user could not be saved. Please, try again.'));
-         }
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+        }
          
         $generations = $this->Users->Generations->find('list', ['limit' => 200]);
         $careers = $this->Users->Careers->find('list', ['limit' => 200]);
          $this->set(compact('user', 'generations', 'careers'));
      }
 
-     public function personal()
-     {
+     public function personal() {
+        
         $this->viewBuilder()->layout('register');
-         $user = $this->Users->get($this->Auth->user("id"), [
-             'contain' => []
-         ]);
 
-         if($this->request->is(['post', 'put'])){
+        $user = $this->Users->get($this->Auth->user("id"), [
+            'contain' => []
+            ]);
+
+        if($this->request->is(['post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             $user->stage = 2;
             if ($this->Users->save($user)) {
-              $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect([ 'action' => 'education']);
-            } else
-               $this->Flash->error(__('The user could not be saved. Please, try again.'));
-         }
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+            $this->set(compact('user'));
+        }
+    }
 
-         $this->set(compact('user'));
-     }
-
-     public function work()
-     {
-            $this->viewBuilder()->layout('register');
-             $user = $this->Users->get($this->Auth->user("id"), [
-                 'contain' => ['Companies']
-             ]);
-             if($this->request->is(['post'])) {
-                $data = $this->request->data();
-                $company = $this->Users->Companies->getOrCreate($data['company']);
-                $start_date = implode("-", $data['start_date']);
-                $end_date = implode("-", $data['end_date']);
-                
-                $user_data = [
-                    'companies' => [
-                        [
-                            'id' => $company->id,
-                            '_joinData' => [
+    public function work() {
+        $this->viewBuilder()->layout('register');
+        $user = $this->Users->get($this->Auth->user("id"), [
+            'contain' => ['Companies']
+        ]);
+             
+        if($this->request->is(['post'])) {
+            $data = $this->request->data();
+            $company = $this->Users->Companies->getOrCreate($data['company']);
+            $start_date = implode("-", $data['start_date']);
+            $end_date = implode("-", $data['end_date']);
+            $user_data = [
+                'companies' => [
+                    [
+                        'id' => $company->id,
+                        '_joinData' => [
                                 'position' => $data['position'],
                                 'start_date' => strlen($start_date) == 10 ? $start_date : null,
                                 'end_date' => strlen($end_date) == 10 ? $end_date : null,
                                 'description' => $data['description'],
                                 'current_job' => true
-                            ]
                         ]
                     ]
-                ];
-                $user = $this->Users->patchEntity($user, $user_data);
-                if ($this->Users->save($user)) {
-                  $this->Flash->success(__('The user has been saved.'));
-                    return $this->redirect([ 'action' => 'addPhone']);
-                } else {
-                   $this->Flash->error(__('The user could not be saved. Please, try again.'));
-                // next step
-                }
-            }
+                ]
+            ];
 
-             $this->set(compact('user'));
+            $user = $this->Users->patchEntity($user, $user_data);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect([ 'action' => 'addPhone']);
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                // next step
+            }
+        }
+        $this->set(compact('user'));
      }
 
-     public function emailVerificationS0()
-     {
+     public function emailVerificationS0() {
         $this->viewBuilder()->layout('register');
      }
 
-     public function emailVerification($id = null, $code = null)
-     {
+     public function emailVerification($id = null, $code = null) {
         if($this->request->is(['post'])){
             $data = $this->request->data();
             $id = $this->Auth->user("id");
             $code = $data['code'];
         }
-          $this->viewBuilder()->layout('register');
-          $user = $this->Users->findByEmailValidationCodeAndId($code, $id)->first();
-          if($user){
+        
+        $this->viewBuilder()->layout('register');
+        $user = $this->Users->findByEmailValidationCodeAndId($code, $id)->first();
+        
+        if($user){
             $user->email_verified = true;
             $this->Users->save($user);
-          } else {
+        } else {
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
             return $this->redirect([ 'action' => 'emailVerificationS0']);
-          }
-          $this->set(compact('user'));
+        }
+        $this->set(compact('user'));
      }
 
-     public function addPhone()
-     {
-          $this->viewBuilder()->layout('register');
-          $user = $this->Users->get($this->Auth->user("id"));
+    public function addPhone() {
+        $this->viewBuilder()->layout('register');
+        $user = $this->Users->get($this->Auth->user("id"));
 
-            if($this->request->is(['post', 'put'])){
-		$user->mobile_phone_number = $this->request->data('phone_full');
+        if($this->request->is(['post', 'put'])){
+		    $user->mobile_phone_number = $this->request->data('phone_full');
 
-		if ($this->Users->save($user)) {
-		    $this->sendSMS($user);
-                    return $this->redirect([ 'action' => 'phoneVerification']);
-                } else {
-                   $this->Flash->error(__('The user could not be saved. Please, try again.'));
-	 	} 
-            }
+    		if ($this->Users->save($user)) {
+    		    $this->sendSMS($user);
+                return $this->redirect([ 'action' => 'phoneVerification']);
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+	 	    } 
+        }
         
-
-          $this->set(compact('user'));
-     }
+        $this->set(compact('user'));
+    }
 
     public function phoneVerification() {
       	$this->viewBuilder()->layout('register');
         $user = $this->Users->get($this->Auth->user("id"));
 
     	if($this->request->is(['post', 'put'])){
-		$data = $this->request->getData();
+		    $data = $this->request->getData();
         	$user = $this->Users->findBySmsValidationCodeAndId($data['code'], $this->Auth->user("id"))->first();
-        		if($user){
+
+            if($user){
 				$user->sms_validation_code = null;
-                  		$user->sms_verified = true;
-                  		$this->Users->save($user);
-                  		$this->Flash->success(__('The phone has been verified.'));
-                	}else{
-                     		$this->Flash->error(__('The phone could not be verified. Please, try again.'));
-                	}
-    	}		
+                $user->sms_verified = true;
+                $this->Users->save($user);
+                $this->Flash->success(__('The phone has been verified.'));
+            }else{
+                $this->Flash->error(__('The phone could not be verified. Please, try again.'));
+            }
+    	}
         $this->set(compact('user'));
     }
 
     private function sendSMS($user) {
-	$this->loadModel('Settings');
+
+        $this->loadModel('Settings');
+
         $settings = $this->Settings->get(0);
 
         //Define SMS Parameters from Settings
@@ -358,27 +357,31 @@ class UsersController extends AppController
 					 'TO' => $to, 
 					 'MSG' => $msg
 				]);
-	if($response->code == 200) {
+    	if($response->code == 200) {
         	$user->sms_validation_code = $code;
-		$this->Users->save($user);
-	}
+    		$this->Users->save($user);
+    	}
     }
     
 
     public function passwordRecovery() {
-	$this->viewBuilder()->layout('register');
-      	if ($this->request->is('post')) {
-		$data = $this->request->getData();
-		$user = $this->Users->findByEmail($data['email'])->first();
-		if(empty($user)) {
-			$this->Flasg->error('Oops, no encontramos tu email en nuestro sistema, verifica e intenta de nuevo.');
-                	return $this->redirect('/users/password-recovery');
-		}
 
-		$user->email_validation_code = bin2hex(random_bytes(16));
-		if($this->Users->save($user)) {
-			$email = new Email();
-			$email
+        $this->viewBuilder()->layout('register');
+
+        if ($this->request->is('post')) {
+    		$data = $this->request->getData();
+    		$user = $this->Users->findByEmail($data['email'])->first();
+
+            if(empty($user)) {
+    			$this->Flasg->error('Oops, no encontramos tu email en nuestro sistema, verifica e intenta de nuevo.');
+               	return $this->redirect('/users/password-recovery');
+    		}
+
+    		$user->email_validation_code = bin2hex(random_bytes(16));
+
+            if($this->Users->save($user)) {
+    			$email = new Email();
+    			$email
                 		->template('password', 'welcome')
                 		->to($user->email)
                 		->from('webmaster@egresadositt.com')
@@ -387,42 +390,43 @@ class UsersController extends AppController
 					    'name' => ucfirst($user->first_name) ])
                 		->send();
 
-			$this->Flash->success('Te hemos enviado un correo electrónico con las instrucciones para resetear tu contraseña.');
-                   	return $this->redirect('/users/login');
-		}
-	}	
+    			$this->Flash->success('Te hemos enviado un correo electrónico con las instrucciones para resetear tu contraseña.');
+               	return $this->redirect('/users/login');
+		    }
+	    }	
     }
 
-     public function newPassword($id = null, $code = null)
-     {
+     public function newPassword($id = null, $code = null) {
         $this->viewBuilder()->layout('register');
 
-	if ($this->request->is('post')) {
-		$data = $this->request->getData();
-		// root perdoname, yo sé que la validación no se hace aquí
-		if ($data['new_password'] != $data['confirm_password']) {
-			$this->Flash->error('El password no coincide.');
-			return $this->redirect( ['action' => 'new-password', $data['id'], $data['email_validation_code']] );
-		}
+	    if ($this->request->is('post')) {
+	    	$data = $this->request->getData();
+	    	// root perdoname, yo sé que la validación no se hace aquí
+	    	if ($data['new_password'] != $data['confirm_password']) {
+	    		$this->Flash->error('El password no coincide.');
+	    		return $this->redirect( ['action' => 'new-password', $data['id'], $data['email_validation_code']] );
+	    	}
 
-		$user = $this->Users->findByEmailValidationCodeAndId($data['email_validation_code'], $data['id'])->first();
-		$user->password = $data['new_password'];
-		$user->email_validation_code = 'expired';
-		if($this->Users->save($user)) {
-			$this->Flash->success('Hemos restablecido tu contraseña.');
-                        return $this->redirect('/users/login');
-		}
+    		$user = $this->Users->findByEmailValidationCodeAndId($data['email_validation_code'], $data['id'])->first();
+    		$user->password = $data['new_password'];
+    		$user->email_validation_code = 'expired';
 
-		$this->Flash->error('Se produjo un error al guardar.');
-                return $this->redirect( [ 'action' => 'new-password', $data['id'], $data['email_validation_code']]);
+            if($this->Users->save($user)) {
+    			$this->Flash->success('Hemos restablecido tu contraseña.');
+                return $this->redirect('/users/login');
+    		}
 
-	}
+    		$this->Flash->error('Se produjo un error al guardar.');
+            return $this->redirect( [ 'action' => 'new-password', $data['id'], $data['email_validation_code']]);
+    	}
 	
        $user = $this->Users->findByEmailValidationCodeAndId($code, $id)->first();
+
        if(empty($user)){
 		$this->Flash->error('Oops, no deberías estar aquí, algo no salió como esperaba.');
             	return $this->redirect('/users/login');
         }
-	$this->set(compact('user'));
+
+        $this->set(compact('user'));
      }
 }
