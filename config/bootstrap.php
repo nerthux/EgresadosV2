@@ -219,3 +219,7 @@ if (Configure::read('debug')) {
 Plugin::load('Recaptcha', ['bootstrap' => true, 'routes' => true]);
 
 Plugin::load('BootstrapUI');
+
+Plugin::load('Migrations');
+
+Plugin::load('Recaptcha', ['bootstrap' => true, 'routes' => true]);

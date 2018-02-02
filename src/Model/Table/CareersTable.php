@@ -64,10 +64,10 @@ class CareersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('code')
+            ->integer('code')
             ->requirePresence('code', 'create')
             ->notEmpty('code')
-            ->add('code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('code','unique',['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('name')

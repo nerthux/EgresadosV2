@@ -163,6 +163,10 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['email']));
+<<<<<<< HEAD
+=======
+        //$rules->add($rules->isUnique(['username']));
+>>>>>>> 25bb7b55685579661e10c6d12cb47698d78d84f2
         $rules->add($rules->existsIn(['generation_id'], 'Generations'));
         $rules->add($rules->existsIn(['career_id'], 'Careers'));
 
