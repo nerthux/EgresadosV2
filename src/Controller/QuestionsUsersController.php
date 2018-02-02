@@ -150,4 +150,13 @@ class QuestionsUsersController extends AppController
             }
         }
     }
+    //Alex was here madafoca :v
+    public function test()
+    {
+        //$query = $this->QuestionsUsers->find();$query->where(['question_id' == 30]);
+        $questionsUser = $this->QuestionsUsers->find();
+
+        $this->set('questionsUser', $questionsUser);
+        $this->set('_serialize', ['questionsUser']);
+    }
 }
