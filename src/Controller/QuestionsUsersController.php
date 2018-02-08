@@ -159,4 +159,10 @@ class QuestionsUsersController extends AppController
         $this->set('questionsUser', $questionsUser);
         $this->set('_serialize', ['questionsUser']);
     }
+
+    public function testform()
+    {
+        //$query = $this->QuestionsUsers->find();$query->where(['question_id' == 30]);
+        
+    }
 }
