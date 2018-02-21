@@ -13,7 +13,11 @@ $query->select(['question_id'])
 <body>
   <?php
   foreach ($query as $question) {
-
+  $query2 = TableRegistry::get('Questions')->find()->where(['id' => $question->question_id]);
+  $query2->select(['label', 'choices']);
+  foreach ($query2 as $quest) {
+    echo "$quest->label";
+  }
   
    ?>
    <?= $question->question_id ?>

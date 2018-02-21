@@ -232,4 +232,14 @@ class FormsController extends AppController
         $this->set('_serialize', ['form']);
     }
 
+    public function report($id = null){
+        $form = $this->Forms->get($id, [
+            'contain' => ['Careers', 'Generations', 'Questions', 'QuestionsUsers']
+        ]);
+
+        $this->set('form', $form);
+        $this->set('_serialize', ['form']);
+
+    }
+
 }
